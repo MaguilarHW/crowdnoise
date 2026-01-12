@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>crowd·noise</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="phone-frame">
+      <!-- Home Screen -->
+      <div class="screen active" id="home">
+        <header>
+          <h1>crowd·noise</h1>
+          <span class="menu">☰</span>
+        </header>
+        <div class="content">
+          <p class="section-label">groups + active projects</p>
+          <div class="pills">
+            <span class="pill active-pill">all</span>
+            <span class="pill" data-screen="library">saved samples</span>
+            <span class="pill" data-screen="discover">discover</span>
+            <span class="pill">active</span>
+          </div>
+          <h2>your groups</h2>
+          <div class="card" data-screen="home">
+            <div class="card-header">
+              <span class="icon">🥁</span>
+              <div>
+                <h3>kitchen drums</h3>
+                <p class="muted">3 friends • 2 active projects • 47 samples</p>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-screen="home">
+            <div class="card-header">
+              <span class="icon">🎤</span>
+              <div>
+                <h3>hallway choir</h3>
+                <p class="muted">5 friends • 1 active project • 23 samples</p>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-screen="home">
+            <div class="card-header">
+              <span class="icon">🎸</span>
+              <div>
+                <h3>basement sessions</h3>
+                <p class="muted">4 friends • 3 active projects • 89 samples</p>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-screen="home">
+            <div class="card-header">
+              <span class="icon">🎹</span>
+              <div>
+                <h3>piano room</h3>
+                <p class="muted">2 friends • 0 active projects • 12 samples</p>
+              </div>
+            </div>
+          </div>
+          <h2>active projects</h2>
+          <div
+            class="project-card"
+            data-screen="project-detail"
+            data-project="ye"
+          >
+            <div
+              class="album-cover-preview"
+              style="background-image: url('images/ye.png')"
+            ></div>
+            <div class="project-info">
+              <h3>ye</h3>
+              <p class="muted">42% • 3/7 tracks</p>
+              <p class="faint">needs: kick, snare, keys</p>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 42%"></div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="project-card"
+            data-screen="project-detail"
+            data-project="carti"
+          >
+            <div
+              class="album-cover-preview"
+              style="background-image: url('images/wholelottared.png')"
+            ></div>
+            <div class="project-info">
+              <h3>whole lotta red</h3>
+              <p class="muted">8% • 1/12 tracks</p>
+              <p class="faint">needs: hi-hats, glitch, adlibs</p>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 8%"></div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="project-card"
+            data-screen="project-detail"
+            data-project="currents"
+          >
+            <div
+              class="album-cover-preview"
+              style="background-image: url('images/currents.png')"
+            ></div>
+            <div class="project-info">
+              <h3>currents</h3>
+              <p class="muted">67% • 8/12 tracks</p>
+              <p class="faint">needs: synth texture, bass line</p>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 67%"></div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="project-card"
+            data-screen="project-detail"
+            data-project="1989"
+          >
+            <div
+              class="album-cover-preview"
+              style="background-image: url('images/1989.png')"
+            ></div>
+            <div class="project-info">
+              <h3>1989</h3>
+              <p class="muted">0% • 0/13 tracks</p>
+              <p class="faint">needs: lots of singing</p>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+          <button class="cta-button" data-screen="project-detail">
+            start a new project
+          </button>
+          <p class="footer-text">lowercase. no clutter. one thing at a time.</p>
+        </div>
+      </div>
+
+      <!-- Project Detail Screen -->
+      <div class="screen" id="project-detail">
+        <header>
+          <button class="back" onclick="showScreen('home')">←</button>
+          <h1 id="project-title">ye</h1>
+          <span class="menu">⚙</span>
+        </header>
+        <div class="content">
+          <div
+            class="album-cover-large"
+            id="album-cover"
+            style="background-image: url('images/ye.png')"
+          >
+            <div
+              class="cover-reveal"
+              id="cover-reveal"
+              style="clip-path: polygon(0 0, 100% 0, 100% 42%, 0 42%)"
+            ></div>
+          </div>
+          <p class="section-label">layered tracks</p>
+          <div class="track-list">
+            <div class="track-item" data-screen="editing">
+              <span class="track-icon">🎵</span>
+              <div class="track-info">
+                <h3>kick</h3>
+                <p class="faint">assigned to @miles • done</p>
+              </div>
+              <span class="track-status">✓</span>
+            </div>
+            <div class="track-item" data-screen="assignment">
+              <span class="track-icon">🎵</span>
+              <div class="track-info">
+                <h3>snare</h3>
+                <p class="faint">unassigned • priority</p>
+              </div>
+              <span class="track-status pending">+</span>
+            </div>
+            <div class="track-item" data-screen="editing">
+              <span class="track-icon">🎹</span>
+              <div class="track-info">
+                <h3>keys</h3>
+                <p class="faint">assigned to @alex • done</p>
+              </div>
+              <span class="track-status">✓</span>
+            </div>
+            <div class="track-item" data-screen="editing">
+              <span class="track-icon">🎸</span>
+              <div class="track-info">
+                <h3>bass</h3>
+                <p class="faint">assigned to @sam • done</p>
+              </div>
+              <span class="track-status">✓</span>
+            </div>
+            <div class="track-item" data-screen="assignment">
+              <span class="track-icon">🎤</span>
+              <div class="track-info">
+                <h3>vocal texture</h3>
+                <p class="faint">unassigned</p>
+              </div>
+              <span class="track-status pending">+</span>
+            </div>
+            <div class="track-item" data-screen="assignment">
+              <span class="track-icon">🥁</span>
+              <div class="track-info">
+                <h3>hi-hats</h3>
+                <p class="faint">unassigned</p>
+              </div>
+              <span class="track-status pending">+</span>
+            </div>
+            <div class="track-item" data-screen="assignment">
+              <span class="track-icon">🎺</span>
+              <div class="track-info">
+                <h3>strings</h3>
+                <p class="faint">unassigned</p>
+              </div>
+              <span class="track-status pending">+</span>
+            </div>
+          </div>
+          <div class="project-stats">
+            <div class="stat-item">
+              <span class="stat-value">42%</span>
+              <span class="stat-label">complete</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">3/7</span>
+              <span class="stat-label">tracks</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">12</span>
+              <span class="stat-label">samples</span>
+            </div>
+          </div>
+          <button class="cta-button" data-screen="assignment">
+            assign sounds
+          </button>
+          <button class="cta-button secondary" data-screen="publish">
+            publish remake
+          </button>
+        </div>
+      </div>
+
+      <!-- Publish Screen -->
+      <div class="screen" id="publish">
+        <header>
+          <button class="back" onclick="showScreen('project-detail')">←</button>
+          <h1>publish</h1>
+          <span class="menu">✓</span>
+        </header>
+        <div class="content">
+          <p class="section-label">share your remake with the community</p>
+          <div class="card">
+            <h3>ye</h3>
+            <p class="muted">42% complete • 3/7 tracks</p>
+            <p class="faint">by kitchen drums</p>
+          </div>
+          <div class="publish-options">
+            <h2>publish options</h2>
+            <div class="option-item">
+              <input type="checkbox" id="allow-voting" checked />
+              <label for="allow-voting">
+                <h3>allow voting</h3>
+                <p class="faint">let others rate creativity</p>
+              </label>
+            </div>
+            <div class="option-item">
+              <input type="checkbox" id="allow-borrowing" checked />
+              <label for="allow-borrowing">
+                <h3>allow sample borrowing</h3>
+                <p class="faint">others can use your samples</p>
+              </label>
+            </div>
+            <div class="option-item">
+              <input type="checkbox" id="show-provenance" />
+              <label for="show-provenance">
+                <h3>show provenance</h3>
+                <p class="faint">reveal where sounds came from</p>
+              </label>
+            </div>
+          </div>
+          <button class="cta-button" onclick="publishRemake()">
+            publish to discover
+          </button>
+        </div>
+      </div>
+
+      <!-- Assignment Screen -->
+      <div class="screen" id="assignment">
+        <header>
+          <button class="back" onclick="showScreen('project-detail')">←</button>
+          <h1>assign sounds</h1>
+          <span class="menu">✓</span>
+        </header>
+        <div class="content">
+          <p class="section-label">who should make this sound?</p>
+          <div class="card">
+            <h3>snare</h3>
+            <p class="muted">needs: punchy, tight</p>
+          </div>
+          <h2>team members</h2>
+          <div class="member-list">
+            <div class="member-item" onclick="assignSound(this)">
+              <span class="member-avatar">👤</span>
+              <div class="member-info">
+                <h3>@miles</h3>
+                <p class="faint">2 sounds assigned</p>
+              </div>
+              <span class="assign-btn">assign</span>
+            </div>
+            <div class="member-item" onclick="assignSound(this)">
+              <span class="member-avatar">👤</span>
+              <div class="member-info">
+                <h3>@alex</h3>
+                <p class="faint">1 sound assigned</p>
+              </div>
+              <span class="assign-btn">assign</span>
+            </div>
+            <div class="member-item" onclick="assignSound(this)">
+              <span class="member-avatar">👤</span>
+              <div class="member-info">
+                <h3>@sam</h3>
+                <p class="faint">0 sounds assigned • available</p>
+              </div>
+              <span class="assign-btn">assign</span>
+            </div>
+            <div class="member-item" onclick="assignSound(this)">
+              <span class="member-avatar">👤</span>
+              <div class="member-info">
+                <h3>@jordan</h3>
+                <p class="faint">1 sound assigned • busy</p>
+              </div>
+              <span class="assign-btn">assign</span>
+            </div>
+          </div>
+          <div class="assignment-tips">
+            <p class="faint">
+              💡 tip: assign sounds based on each member's strengths. @miles is
+              great with drums, @alex excels at keys.
+            </p>
+          </div>
+          <button class="cta-button" data-screen="recording">
+            record new sound
+          </button>
+        </div>
+      </div>
+
+      <!-- Recording Screen -->
+      <div class="screen" id="recording">
+        <header>
+          <button class="back" onclick="showScreen('assignment')">←</button>
+          <h1>recording</h1>
+          <span class="menu">✕</span>
+        </header>
+        <div class="content recording-content">
+          <div class="recording-circle">
+            <button class="record-button" id="record-btn">●</button>
+            <p class="muted">tap to record</p>
+            <p class="faint" id="timer">0.0s</p>
+          </div>
+          <div class="upload-section">
+            <label for="video-upload" class="upload-button">
+              <span>📁</span>
+              <span>upload video</span>
+            </label>
+            <input type="file" id="video-upload" accept="video/*" style="display: none;" />
+          </div>
+          <div class="recording-info">
+            <h3>recording: snare</h3>
+            <p class="muted">make it punchy and tight</p>
+          </div>
+          <div class="recording-tips">
+            <p class="faint">
+              💡 try: banging a table, tapping a desk, or using a basketball
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Library / Samples Screen -->
+      <div class="screen" id="library">
+        <header>
+          <button class="back" onclick="showScreen('home')">←</button>
+          <h1>saved samples</h1>
+          <span class="menu">🔍</span>
+        </header>
+        <div class="content">
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="search samples..."
+              class="search-input"
+            />
+          </div>
+          <div class="pills">
+            <span class="pill active-pill">all</span>
+            <span class="pill">drums</span>
+            <span class="pill">keys</span>
+            <span class="pill">vocal</span>
+            <span class="pill">texture</span>
+          </div>
+          <h2>your samples</h2>
+          <div class="sample-grid">
+            <div class="sample-card" data-screen="editing">
+              <span class="sample-icon">🥁</span>
+              <h3>kitchen drum</h3>
+              <p class="faint">0.6s • @miles</p>
+            </div>
+            <div class="sample-card" data-screen="editing">
+              <span class="sample-icon">⌨️</span>
+              <h3>key clack</h3>
+              <p class="faint">0.4s • @alex</p>
+            </div>
+            <div class="sample-card" data-screen="editing">
+              <span class="sample-icon">🏀</span>
+              <h3>basketball</h3>
+              <p class="faint">1.2s • @miles</p>
+            </div>
+            <div class="sample-card" data-screen="editing">
+              <span class="sample-icon">🎤</span>
+              <h3>vocal hum</h3>
+              <p class="faint">2.1s • @sam</p>
+            </div>
+            <div class="sample-card" data-screen="editing">
+              <span class="sample-icon">📱</span>
+              <h3>phone buzz</h3>
+              <p class="faint">0.8s • @alex</p>
+            </div>
+            <div class="sample-card" data-screen="editing">
+              <span class="sample-icon">🚪</span>
+              <h3>door creak</h3>
+              <p class="faint">1.5s • @miles</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample Editing Screen -->
+      <div class="screen" id="editing">
+        <header>
+          <button class="back" onclick="showScreen('library')">←</button>
+          <h1>editing</h1>
+          <span class="menu">✓</span>
+        </header>
+        <div class="content">
+          <p class="section-label">transform your sound</p>
+          <div class="card">
+            <h3>snare — "kitchen drum"</h3>
+            <p class="muted">clip #12 • 0.6s • @miles</p>
+          </div>
+          <div class="editor-tabs">
+            <span class="tab active-tab">tone</span>
+            <span class="tab">eq</span>
+            <span class="tab">effects</span>
+            <span class="tab">space</span>
+          </div>
+          <div class="slider-group">
+            <label>tone</label>
+            <div class="slider-container">
+              <input type="range" class="slider" min="0" max="100" value="35" />
+              <span class="slider-value">warm</span>
+            </div>
+          </div>
+          <div class="slider-group">
+            <label>shape</label>
+            <div class="slider-container">
+              <input type="range" class="slider" min="0" max="100" value="60" />
+              <span class="slider-value">punch</span>
+            </div>
+          </div>
+          <div class="slider-group">
+            <label>brightness</label>
+            <div class="slider-container">
+              <input type="range" class="slider" min="0" max="100" value="45" />
+              <span class="slider-value">balanced</span>
+            </div>
+          </div>
+          <h2>eq</h2>
+          <div class="eq-visualizer">
+            <div class="eq-band">
+              <label>low</label>
+              <input
+                type="range"
+                class="slider vertical"
+                min="-12"
+                max="12"
+                value="2"
+              />
+              <span class="eq-value">+2db</span>
+            </div>
+            <div class="eq-band">
+              <label>mid</label>
+              <input
+                type="range"
+                class="slider vertical"
+                min="-12"
+                max="12"
+                value="0"
+              />
+              <span class="eq-value">0db</span>
+            </div>
+            <div class="eq-band">
+              <label>high</label>
+              <input
+                type="range"
+                class="slider vertical"
+                min="-12"
+                max="12"
+                value="-1"
+              />
+              <span class="eq-value">-1db</span>
+            </div>
+          </div>
+          <h2>effects</h2>
+          <div class="effect-toggle">
+            <span>reverb</span>
+            <label class="toggle-switch">
+              <input type="checkbox" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="slider-group">
+            <label>reverb amount</label>
+            <div class="slider-container">
+              <input type="range" class="slider" min="0" max="100" value="25" />
+              <span class="slider-value">subtle</span>
+            </div>
+          </div>
+          <div class="effect-toggle">
+            <span>delay</span>
+            <label class="toggle-switch">
+              <input type="checkbox" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="slider-group">
+            <label>delay time</label>
+            <div class="slider-container">
+              <input type="range" class="slider" min="0" max="100" value="30" />
+              <span class="slider-value">short</span>
+            </div>
+          </div>
+          <div class="effect-toggle">
+            <span>compression</span>
+            <label class="toggle-switch">
+              <input type="checkbox" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="slider-group">
+            <label>compression ratio</label>
+            <div class="slider-container">
+              <input type="range" class="slider" min="0" max="100" value="40" />
+              <span class="slider-value">moderate</span>
+            </div>
+          </div>
+          <div class="effect-toggle">
+            <span>distortion</span>
+            <label class="toggle-switch">
+              <input type="checkbox" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="slider-group">
+            <label>distortion amount</label>
+            <div class="slider-container">
+              <input type="range" class="slider" min="0" max="100" value="15" />
+              <span class="slider-value">light</span>
+            </div>
+          </div>
+          <div class="effect-toggle">
+            <span>chorus</span>
+            <label class="toggle-switch">
+              <input type="checkbox" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="slider-group">
+            <label>chorus depth</label>
+            <div class="slider-container">
+              <input type="range" class="slider" min="0" max="100" value="20" />
+              <span class="slider-value">subtle</span>
+            </div>
+          </div>
+          <h2>trim</h2>
+          <div class="trim-controls">
+            <div class="trim-display">
+              <span class="faint">0.0s</span>
+              <div class="trim-bar">
+                <div class="trim-handle start"></div>
+                <div class="trim-handle end"></div>
+              </div>
+              <span class="faint">0.6s</span>
+            </div>
+            <p class="faint">drag handles to trim • selected: 0.45s - 1.05s</p>
+          </div>
+          <div class="preview-box">
+            <button class="play-button">▶︎</button>
+            <p class="muted">preview</p>
+          </div>
+          <button class="cta-button" data-screen="provenance">
+            save + view provenance
+          </button>
+        </div>
+      </div>
+
+      <!-- Provenance / Original Sound Screen -->
+      <div class="screen" id="provenance">
+        <header>
+          <button class="back" onclick="showScreen('editing')">←</button>
+          <h1>provenance</h1>
+          <span class="menu">•••</span>
+        </header>
+        <div class="content">
+          <p class="section-label">tap any sound to rewind to the original</p>
+          <div class="card">
+            <h3>current sound</h3>
+            <p class="muted">snare — "kitchen drum"</p>
+            <p class="faint">derived from: clip #12 • 0.6s • @miles</p>
+          </div>
+          <h2>chain</h2>
+          <div class="chain-item">
+            <span class="chain-icon">📹</span>
+            <div>
+              <h3>original clip</h3>
+              <p class="faint">video + audio • recorded 9:14pm</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-item">
+            <span class="chain-icon">✂️</span>
+            <div>
+              <h3>trim</h3>
+              <p class="faint">0.45s - 1.05s</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-item">
+            <span class="chain-icon">🎚️</span>
+            <div>
+              <h3>tone</h3>
+              <p class="faint">warm</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-item">
+            <span class="chain-icon">🔊</span>
+            <div>
+              <h3>shape</h3>
+              <p class="faint">punch</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-item">
+            <span class="chain-icon">💾</span>
+            <div>
+              <h3>export</h3>
+              <p class="faint">snare.wav</p>
+            </div>
+          </div>
+          <h2>original</h2>
+          <div class="video-preview">
+            <p class="faint">video preview</p>
+            <button class="play-button large">▶︎</button>
+            <p class="muted">play original clip (0.6s)</p>
+          </div>
+          <button class="cta-button" data-screen="voting">
+            credit + save provenance card
+          </button>
+        </div>
+      </div>
+
+      <!-- Voting / Creativity Screen -->
+      <div class="screen" id="voting">
+        <header>
+          <button class="back" onclick="showScreen('provenance')">←</button>
+          <h1>voting</h1>
+          <span class="menu">•••</span>
+        </header>
+        <div class="content">
+          <p class="section-label">rate creativity</p>
+          <div class="voting-card">
+            <div class="voting-header">
+              <span class="voting-icon">🏀</span>
+              <div>
+                <h3>basketball dribble → drum</h3>
+                <p class="muted">@miles • kitchen drums</p>
+              </div>
+            </div>
+            <p class="faint">
+              using a basketball as a drum sound is cooler than beating on a
+              table
+            </p>
+            <div class="rating-section">
+              <h2>how creative?</h2>
+              <div class="stars">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+            </div>
+          </div>
+          <div class="voting-card">
+            <div class="voting-header">
+              <span class="voting-icon">⌨️</span>
+              <div>
+                <h3>key clack → hi-hat</h3>
+                <p class="muted">@alex • hallway choir</p>
+              </div>
+            </div>
+            <p class="faint">simple but effective</p>
+            <div class="rating-section">
+              <h2>how creative?</h2>
+              <div class="stars">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+            </div>
+          </div>
+          <div class="voting-card">
+            <div class="voting-header">
+              <span class="voting-icon">🚪</span>
+              <div>
+                <h3>door creak → texture</h3>
+                <p class="muted">@sam • kitchen drums</p>
+              </div>
+            </div>
+            <p class="faint">atmospheric and unexpected</p>
+            <div class="rating-section">
+              <h2>how creative?</h2>
+              <div class="stars">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+            </div>
+          </div>
+          <div class="voting-card">
+            <div class="voting-header">
+              <span class="voting-icon">💧</span>
+              <div>
+                <h3>water drop → hi-hat</h3>
+                <p class="muted">@alex • hallway choir</p>
+              </div>
+            </div>
+            <p class="faint">clean and precise</p>
+            <div class="rating-section">
+              <h2>how creative?</h2>
+              <div class="stars">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+            </div>
+          </div>
+          <div class="voting-card">
+            <div class="voting-header">
+              <span class="voting-icon">📦</span>
+              <div>
+                <h3>cardboard → kick</h3>
+                <p class="muted">@miles • kitchen drums</p>
+              </div>
+            </div>
+            <p class="faint">surprisingly punchy</p>
+            <div class="rating-section">
+              <h2>how creative?</h2>
+              <div class="stars">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+            </div>
+          </div>
+          <div class="voting-stats">
+            <p class="muted">voting on 5 samples • 12 total votes</p>
+          </div>
+          <button class="cta-button" data-screen="home">submit votes</button>
+        </div>
+      </div>
+
+      <!-- Discover / Community Screen -->
+      <div class="screen" id="discover">
+        <header>
+          <button class="back" onclick="showScreen('home')">←</button>
+          <h1>discover</h1>
+          <span class="menu">🔍</span>
+        </header>
+        <div class="content">
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="search remakes..."
+              class="search-input"
+            />
+          </div>
+          <div class="pills">
+            <span class="pill active-pill">trending</span>
+            <span class="pill">newest</span>
+            <span class="pill">most creative</span>
+            <span class="pill">samples</span>
+          </div>
+          <h2>trending remakes</h2>
+          <div class="discover-card" data-screen="published-detail" data-id="1">
+            <div
+              class="discover-cover"
+              style="background-image: url('images/currents.png')"
+            ></div>
+            <div class="discover-info">
+              <h3>currents</h3>
+              <p class="muted">by basement sessions</p>
+              <div class="discover-stats">
+                <span class="stat-badge">⭐ 4.8</span>
+                <span class="stat-badge">👥 234 votes</span>
+                <span class="stat-badge">📥 12 borrowed</span>
+              </div>
+            </div>
+          </div>
+          <div class="discover-card" data-screen="published-detail" data-id="2">
+            <div
+              class="discover-cover"
+              style="background-image: url('images/ye.png')"
+            ></div>
+            <div class="discover-info">
+              <h3>ye</h3>
+              <p class="muted">by kitchen drums</p>
+              <div class="discover-stats">
+                <span class="stat-badge">⭐ 4.5</span>
+                <span class="stat-badge">👥 189 votes</span>
+                <span class="stat-badge">📥 8 borrowed</span>
+              </div>
+            </div>
+          </div>
+          <div class="discover-card" data-screen="published-detail" data-id="3">
+            <div
+              class="discover-cover"
+              style="background-image: url('images/wholelottared.png')"
+            ></div>
+            <div class="discover-info">
+              <h3>whole lotta red</h3>
+              <p class="muted">by hallway choir</p>
+              <div class="discover-stats">
+                <span class="stat-badge">⭐ 4.2</span>
+                <span class="stat-badge">👥 156 votes</span>
+                <span class="stat-badge">📥 5 borrowed</span>
+              </div>
+            </div>
+          </div>
+          <h2>popular samples</h2>
+          <div class="sample-grid">
+            <div class="sample-card" data-screen="sample-detail">
+              <span class="sample-icon">🏀</span>
+              <h3>basketball</h3>
+              <p class="faint">@miles • 234 uses</p>
+            </div>
+            <div class="sample-card" data-screen="sample-detail">
+              <span class="sample-icon">⌨️</span>
+              <h3>key clack</h3>
+              <p class="faint">@alex • 189 uses</p>
+            </div>
+            <div class="sample-card" data-screen="sample-detail">
+              <span class="sample-icon">🚪</span>
+              <h3>door creak</h3>
+              <p class="faint">@sam • 156 uses</p>
+            </div>
+            <div class="sample-card" data-screen="sample-detail">
+              <span class="sample-icon">💧</span>
+              <h3>water drop</h3>
+              <p class="faint">@alex • 142 uses</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Published Remake Detail Screen -->
+      <div class="screen" id="published-detail">
+        <header>
+          <button class="back" onclick="showScreen('discover')">←</button>
+          <h1 id="published-title">currents</h1>
+          <span class="menu">⋯</span>
+        </header>
+        <div class="content">
+          <div
+            class="album-cover-large"
+            style="background-image: url('images/currents.png')"
+          >
+            <div
+              class="cover-reveal"
+              style="clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%)"
+            ></div>
+          </div>
+          <div class="published-header">
+            <div>
+              <h2>by basement sessions</h2>
+              <p class="muted">4 members • published 2 days ago</p>
+            </div>
+            <div class="published-rating">
+              <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+              <p class="muted">4.8 • 234 votes</p>
+            </div>
+          </div>
+          <div class="pills">
+            <span class="pill active-pill">listen</span>
+            <span class="pill" onclick="showSampleList()">samples</span>
+            <span class="pill" onclick="showProvenance()">provenance</span>
+          </div>
+          <div class="play-controls">
+            <button class="play-button large">▶︎</button>
+            <p class="muted">play remake</p>
+          </div>
+          <h2>rate creativity</h2>
+          <div class="rating-section">
+            <div class="stars">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <p class="faint">tap stars to vote</p>
+          </div>
+          <h2>borrow samples</h2>
+          <div class="borrow-list">
+            <div class="borrow-item" onclick="borrowSample(this)">
+              <span class="sample-icon">🎵</span>
+              <div class="borrow-info">
+                <h3>kick</h3>
+                <p class="faint">by @miles • 12 uses</p>
+              </div>
+              <span class="borrow-btn">borrow</span>
+            </div>
+            <div class="borrow-item" onclick="borrowSample(this)">
+              <span class="sample-icon">🎹</span>
+              <div class="borrow-info">
+                <h3>keys</h3>
+                <p class="faint">by @alex • 8 uses</p>
+              </div>
+              <span class="borrow-btn">borrow</span>
+            </div>
+            <div class="borrow-item" onclick="borrowSample(this)">
+              <span class="sample-icon">🎸</span>
+              <div class="borrow-info">
+                <h3>bass</h3>
+                <p class="faint">by @sam • 5 uses</p>
+              </div>
+              <span class="borrow-btn">borrow</span>
+            </div>
+          </div>
+          <button class="cta-button" onclick="borrowAll()">
+            borrow all samples
+          </button>
+        </div>
+      </div>
+
+      <!-- Sample Detail Screen (from discover) -->
+      <div class="screen" id="sample-detail">
+        <header>
+          <button class="back" onclick="showScreen('discover')">←</button>
+          <h1>sample</h1>
+          <span class="menu">⋯</span>
+        </header>
+        <div class="content">
+          <div class="sample-preview-large">
+            <span class="sample-icon" style="font-size: 80px">🏀</span>
+            <h2>basketball</h2>
+            <p class="muted">by @miles • kitchen drums</p>
+          </div>
+          <div class="sample-stats-large">
+            <div class="stat-item">
+              <span class="stat-value">234</span>
+              <span class="stat-label">uses</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">4.8</span>
+              <span class="stat-label">rating</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">1.2s</span>
+              <span class="stat-label">duration</span>
+            </div>
+          </div>
+          <div class="preview-box">
+            <button class="play-button large">▶︎</button>
+            <p class="muted">preview</p>
+          </div>
+          <div class="card">
+            <h3>provenance</h3>
+            <p class="faint">original: video clip • recorded 9:14pm</p>
+            <p class="faint">transformed: tone warm, shape punch</p>
+          </div>
+          <h2>used in</h2>
+          <div class="used-in-list">
+            <div class="used-in-item" data-screen="published-detail">
+              <div
+                class="used-in-cover"
+                style="background-image: url('images/currents.png')"
+              ></div>
+              <div>
+                <h3>currents</h3>
+                <p class="faint">by basement sessions</p>
+              </div>
+            </div>
+            <div class="used-in-item" data-screen="published-detail">
+              <div
+                class="used-in-cover"
+                style="background-image: url('images/ye.png')"
+              ></div>
+              <div>
+                <h3>ye</h3>
+                <p class="faint">by kitchen drums</p>
+              </div>
+            </div>
+          </div>
+          <button class="cta-button" onclick="borrowThisSample()">
+            borrow this sample
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

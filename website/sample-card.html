@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sample card • crowd·noise</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        background: #000;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .sample-card-container {
+        max-width: 350px;
+        width: 100%;
+      }
+
+      .collectible-card {
+        background: linear-gradient(135deg, #0b0b0d 0%, #1a1a1f 100%);
+        border: 2px solid #f97316;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3),
+          0 0 0 1px rgba(249, 115, 22, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .collectible-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          #f97316,
+          #fb923c,
+          #fdba74,
+          #fb923c,
+          #f97316
+        );
+        opacity: 0.6;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #2a2a33;
+      }
+
+      .card-title {
+        flex: 1;
+      }
+
+      .card-title h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 2px;
+        letter-spacing: 0.2px;
+        line-height: 1.2;
+      }
+
+      .card-title .subtitle {
+        font-size: 12px;
+        color: #b6b6bf;
+      }
+
+      .rarity-badge {
+        padding: 4px 10px;
+        background: linear-gradient(135deg, #f97316, #fb923c);
+        color: #f2f2f2;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+      }
+
+      .video-preview-section {
+        margin-bottom: 16px;
+      }
+
+      .video-preview-label {
+        font-size: 10px;
+        color: #7a7a86;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .video-preview-box {
+        width: 100%;
+        height: 80px;
+        background: #0f0f13;
+        border: 1px solid #2a2a33;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .video-preview-box::before {
+        content: "📹";
+        font-size: 24px;
+        opacity: 0.3;
+      }
+
+      .play-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        background: rgba(242, 242, 242, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .play-overlay:hover {
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+
+      .play-overlay::after {
+        content: "▶";
+        font-size: 16px;
+        color: #0b0b0d;
+        margin-left: 2px;
+      }
+
+      .video-info {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+        font-size: 10px;
+        color: #b6b6bf;
+      }
+
+      .transformation-chain {
+        margin-bottom: 16px;
+      }
+
+      .chain-label {
+        font-size: 10px;
+        color: #7a7a86;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .chain-step {
+        background: #0f0f13;
+        border: 1px solid #2a2a33;
+        border-radius: 10px;
+        padding: 8px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: border-color 0.2s;
+      }
+
+      .chain-step:hover {
+        border-color: #f97316;
+      }
+
+      .chain-step-number {
+        width: 20px;
+        height: 20px;
+        background: #2a2a33;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+
+      .chain-step-content {
+        flex: 1;
+      }
+
+      .chain-step-content h3 {
+        font-size: 12px;
+        margin-bottom: 2px;
+        line-height: 1.2;
+      }
+
+      .chain-step-content p {
+        font-size: 10px;
+        color: #7a7a86;
+        line-height: 1.2;
+      }
+
+      .chain-icon {
+        font-size: 14px;
+      }
+
+      .arrow-down {
+        text-align: center;
+        color: #2a2a33;
+        font-size: 12px;
+        margin: -2px 0;
+      }
+
+      .creator-section {
+        background: #0f0f13;
+        border: 1px solid #2a2a33;
+        border-radius: 12px;
+        padding: 10px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .creator-avatar {
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, #2a2a33, #1a1a1f);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        border: 1px solid #2a2a33;
+        flex-shrink: 0;
+      }
+
+      .creator-info h3 {
+        font-size: 14px;
+        margin-bottom: 2px;
+        line-height: 1.2;
+      }
+
+      .creator-info p {
+        font-size: 10px;
+        color: #7a7a86;
+        line-height: 1.2;
+      }
+
+      .creator-stats {
+        display: flex;
+        gap: 8px;
+        margin-top: 4px;
+        flex-wrap: wrap;
+      }
+
+      .creator-stat {
+        font-size: 9px;
+        color: #b6b6bf;
+      }
+
+      .output-section {
+        background: linear-gradient(135deg, #0f0f13, #1a1a1f);
+        border: 1px solid #2a2a33;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 16px;
+        text-align: center;
+      }
+
+      .output-label {
+        font-size: 10px;
+        color: #7a7a86;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .output-waveform {
+        width: 100%;
+        height: 40px;
+        background: #0b0b0d;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .waveform-visual {
+        width: 90%;
+        height: 60%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 1px;
+      }
+
+      .wave-bar {
+        width: 2px;
+        background: #f97316;
+        border-radius: 1px;
+        animation: wave 1.5s ease-in-out infinite;
+      }
+
+      .wave-bar:nth-child(1) {
+        height: 20%;
+        animation-delay: 0s;
+      }
+      .wave-bar:nth-child(2) {
+        height: 60%;
+        animation-delay: 0.1s;
+      }
+      .wave-bar:nth-child(3) {
+        height: 80%;
+        animation-delay: 0.2s;
+      }
+      .wave-bar:nth-child(4) {
+        height: 100%;
+        animation-delay: 0.3s;
+      }
+      .wave-bar:nth-child(5) {
+        height: 70%;
+        animation-delay: 0.4s;
+      }
+      .wave-bar:nth-child(6) {
+        height: 50%;
+        animation-delay: 0.5s;
+      }
+      .wave-bar:nth-child(7) {
+        height: 90%;
+        animation-delay: 0.6s;
+      }
+      .wave-bar:nth-child(8) {
+        height: 40%;
+        animation-delay: 0.7s;
+      }
+      .wave-bar:nth-child(9) {
+        height: 75%;
+        animation-delay: 0.8s;
+      }
+      .wave-bar:nth-child(10) {
+        height: 55%;
+        animation-delay: 0.9s;
+      }
+
+      @keyframes wave {
+        0%,
+        100% {
+          transform: scaleY(1);
+        }
+        50% {
+          transform: scaleY(1.5);
+        }
+      }
+
+      .output-play-btn {
+        width: 32px;
+        height: 32px;
+        background: #f97316;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin: 0 auto 8px;
+        transition: transform 0.2s;
+      }
+
+      .output-play-btn:hover {
+        transform: scale(1.1);
+      }
+
+      .output-play-btn::after {
+        content: "▶";
+        font-size: 12px;
+        color: #f2f2f2;
+        margin-left: 2px;
+      }
+
+      .output-info {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid #2a2a33;
+      }
+
+      .output-stat {
+        text-align: center;
+      }
+
+      .output-stat-value {
+        font-size: 12px;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .output-stat-label {
+        font-size: 9px;
+        color: #7a7a86;
+      }
+
+      .metadata-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+
+      .metadata-item {
+        background: #0f0f13;
+        border: 1px solid #2a2a33;
+        border-radius: 8px;
+        padding: 6px;
+        text-align: center;
+      }
+
+      .metadata-label {
+        font-size: 8px;
+        color: #7a7a86;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 2px;
+      }
+
+      .metadata-value {
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+
+      .collectible-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 12px;
+        border-top: 1px solid #2a2a33;
+      }
+
+      .card-id {
+        font-size: 9px;
+        color: #7a7a86;
+        font-family: monospace;
+      }
+
+      .share-btn {
+        padding: 6px 12px;
+        background: #f97316;
+        color: #f2f2f2;
+        border: none;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+
+      .share-btn:hover {
+        opacity: 0.9;
+      }
+
+      .borrow-count {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 9px;
+        color: #b6b6bf;
+        margin-top: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sample-card-container">
+      <div class="collectible-card">
+        <div class="card-header">
+          <div class="card-title">
+            <h1>basketball → snare</h1>
+            <p class="subtitle">kitchen drum</p>
+          </div>
+          <div class="rarity-badge">rare</div>
+        </div>
+
+        <div class="video-preview-section">
+          <div class="video-preview-label">original</div>
+          <div class="video-preview-box">
+            <div class="play-overlay"></div>
+          </div>
+          <div class="video-info">
+            <span>📹 video + audio</span>
+            <span>0.6s • recorded 9:14pm</span>
+          </div>
+        </div>
+
+        <div class="transformation-chain">
+          <div class="chain-label">transformation chain</div>
+
+          <div class="chain-step">
+            <div class="chain-step-number">1</div>
+            <span class="chain-icon">✂️</span>
+            <div class="chain-step-content">
+              <h3>trim</h3>
+              <p>0.45s - 1.05s</p>
+            </div>
+          </div>
+
+          <div class="arrow-down">↓</div>
+
+          <div class="chain-step">
+            <div class="chain-step-number">2</div>
+            <span class="chain-icon">🎚️</span>
+            <div class="chain-step-content">
+              <h3>tone</h3>
+              <p>warm • +35%</p>
+            </div>
+          </div>
+
+          <div class="arrow-down">↓</div>
+
+          <div class="chain-step">
+            <div class="chain-step-number">3</div>
+            <span class="chain-icon">🔊</span>
+            <div class="chain-step-content">
+              <h3>shape</h3>
+              <p>punch • +60%</p>
+            </div>
+          </div>
+
+          <div class="arrow-down">↓</div>
+
+          <div class="chain-step">
+            <div class="chain-step-number">4</div>
+            <span class="chain-icon">🎛️</span>
+            <div class="chain-step-content">
+              <h3>eq</h3>
+              <p>low +2db • mid 0db • high -1db</p>
+            </div>
+          </div>
+
+          <div class="arrow-down">↓</div>
+
+          <div class="chain-step">
+            <div class="chain-step-number">5</div>
+            <span class="chain-icon">💾</span>
+            <div class="chain-step-content">
+              <h3>export</h3>
+              <p>snare.wav • 44.1kHz</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="creator-section">
+          <div class="creator-avatar">👤</div>
+          <div class="creator-info">
+            <h3>@miles</h3>
+            <p>kitchen drums</p>
+            <div class="creator-stats">
+              <span class="creator-stat">47 samples</span>
+              <span class="creator-stat">⭐ 4.8</span>
+              <span class="creator-stat">234 uses</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="output-section">
+          <div class="output-label">final output</div>
+          <div class="output-waveform">
+            <div class="waveform-visual">
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+            </div>
+          </div>
+          <button class="output-play-btn"></button>
+          <div class="output-info">
+            <div class="output-stat">
+              <span class="output-stat-value">0.6s</span>
+              <span class="output-stat-label">duration</span>
+            </div>
+            <div class="output-stat">
+              <span class="output-stat-value">-12db</span>
+              <span class="output-stat-label">peak</span>
+            </div>
+            <div class="output-stat">
+              <span class="output-stat-value">WAV</span>
+              <span class="output-stat-label">format</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metadata-section">
+          <div class="metadata-item">
+            <div class="metadata-label">created</div>
+            <div class="metadata-value">3 days ago</div>
+          </div>
+          <div class="metadata-item">
+            <div class="metadata-label">borrowed</div>
+            <div class="metadata-value">12 times</div>
+          </div>
+          <div class="metadata-item">
+            <div class="metadata-label">rating</div>
+            <div class="metadata-value">⭐ 4.8</div>
+          </div>
+          <div class="metadata-item">
+            <div class="metadata-label">uses</div>
+            <div class="metadata-value">234</div>
+          </div>
+        </div>
+
+        <div class="collectible-footer">
+          <div>
+            <div class="card-id">#SNR-2024-001</div>
+            <div class="borrow-count" style="margin-top: 4px">
+              <span>📥</span>
+              <span>borrowed by 12 groups</span>
+            </div>
+          </div>
+          <button class="share-btn">share card</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
