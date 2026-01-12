@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1170" height="2532" viewBox="0 0 1170 2532">
+<defs>
+  <style>
+    .bg { fill: #0b0b0d; }
+    .panel { fill: #111114; stroke: #2a2a33; stroke-width: 2; }
+    .rule { stroke: #2a2a33; stroke-width: 2; }
+    .title { fill: #f2f2f2; font: 600 44px -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif; letter-spacing: 0.4px; }
+    .h2 { fill: #f2f2f2; font: 600 32px -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif; }
+    .body { fill: #f2f2f2; font: 400 28px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    .muted { fill: #b6b6bf; font: 400 24px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    .faint { fill: #7a7a86; font: 400 22px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    .pill { fill: transparent; stroke: #2a2a33; stroke-width: 2; rx: 999; }
+    .pillText { fill: #f2f2f2; font: 500 22px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; letter-spacing: 0.3px; }
+    .cta { fill: #f2f2f2; font: 600 26px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    .ctaBox { fill: #f2f2f2; rx: 20; }
+    .ctaBoxText { fill: #0b0b0d; font: 700 26px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+  </style>
+</defs>
+<rect x="0" y="0" width="1170" height="2532" class="bg"/>
+<rect x="60" y="60" width="1050" height="2412" rx="72" class="panel"/>
+<rect x="60" y="60" width="1050" height="2412" rx="72" fill="none" stroke="#2a2a33" stroke-width="2"/>
+
+<text x="120" y="170" class="title">provenance</text>
+<text x="1040" y="170" text-anchor="end" class="muted">•••</text>
+<line x1="120" y1="220" x2="1050" y2="220" class="rule"/>
+<text x="120" y="280" class="muted">tap any sound to rewind to the original</text>
+<rect x="120" y="330" width="930" height="190" rx="28" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/>
+<text x="146" y="386" class="h2">current sound</text>
+<text x="146" y="422" class="muted">snare — “kitchen drum”</text>
+<text x="146" y="470" class="faint">derived from: clip #12 • 0.6s • @miles</text><text x="120" y="590" class="h2">chain</text><rect x="120" y="650" width="930" height="112" rx="24" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/><text x="150" y="698" class="body">original clip</text><text x="150" y="734" class="faint">video + audio • recorded 9:14pm</text><line x1="170" y1="762" x2="170" y2="796" class="rule"/><rect x="120" y="790" width="930" height="112" rx="24" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/><text x="150" y="838" class="body">trim</text><text x="150" y="874" class="faint">0.45s - 1.05s</text><line x1="170" y1="902" x2="170" y2="936" class="rule"/><rect x="120" y="930" width="930" height="112" rx="24" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/><text x="150" y="978" class="body">tone</text><text x="150" y="1014" class="faint">warm</text><line x1="170" y1="1042" x2="170" y2="1076" class="rule"/><rect x="120" y="1070" width="930" height="112" rx="24" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/><text x="150" y="1118" class="body">shape</text><text x="150" y="1154" class="faint">punch</text><line x1="170" y1="1182" x2="170" y2="1216" class="rule"/><rect x="120" y="1210" width="930" height="112" rx="24" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/><text x="150" y="1258" class="body">export</text><text x="150" y="1294" class="faint">snare.wav</text><text x="120" y="1545" class="h2">original</text><rect x="120" y="1595" width="930" height="420" rx="28" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/><text x="146" y="1665" class="faint">video preview</text><text x="146" y="1745" class="body">▶︎</text><text x="220" y="1748" class="muted">play original clip (0.6s)</text>
+<rect x="120" y="2260" width="930" height="88" class="ctaBox"/>
+<text x="585.0" y="2317" text-anchor="middle" class="ctaBoxText">credit + save provenance card</text>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1170" height="2532" viewBox="0 0 1170 2532">
+<defs>
+  <style>
+    .bg { fill: #0b0b0d; }
+    .panel { fill: #111114; stroke: #2a2a33; stroke-width: 2; }
+    .rule { stroke: #2a2a33; stroke-width: 2; }
+    .title { fill: #f2f2f2; font: 600 44px -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif; letter-spacing: 0.4px; }
+    .h2 { fill: #f2f2f2; font: 600 32px -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif; }
+    .body { fill: #f2f2f2; font: 400 28px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    .muted { fill: #b6b6bf; font: 400 24px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    .faint { fill: #7a7a86; font: 400 22px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    .pill { fill: transparent; stroke: #2a2a33; stroke-width: 2; rx: 999; }
+    .pillText { fill: #f2f2f2; font: 500 22px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; letter-spacing: 0.3px; }
+    .cta { fill: #f2f2f2; font: 600 26px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    .ctaBox { fill: #f2f2f2; rx: 20; }
+    .ctaBoxText { fill: #0b0b0d; font: 700 26px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+  </style>
+</defs>
+<rect x="0" y="0" width="1170" height="2532" class="bg"/>
+<rect x="60" y="60" width="1050" height="2412" rx="72" class="panel"/>
+<rect x="60" y="60" width="1050" height="2412" rx="72" fill="none" stroke="#2a2a33" stroke-width="2"/>
+
+<text x="120" y="170" class="title">crowd·noise</text>
+<text x="1040" y="170" text-anchor="end" class="muted">•••</text>
+<line x1="120" y1="220" x2="1050" y2="220" class="rule"/>
+<text x="120" y="280" class="muted">groups + active projects</text>
+<rect x="120" y="320" width="220" height="54" rx="999" class="pill"/>
+<text x="138" y="356" class="pillText">all</text>
+
+<rect x="360" y="320" width="260" height="54" rx="999" class="pill"/>
+<text x="378" y="356" class="pillText">active</text>
+
+<rect x="640" y="320" width="300" height="54" rx="999" class="pill"/>
+<text x="658" y="356" class="pillText">saved samples</text>
+<text x="120" y="460" class="h2">your groups</text>
+<rect x="120" y="510" width="930" height="180" rx="28" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/>
+<text x="146" y="566" class="h2">kitchen drums</text>
+<text x="146" y="602" class="muted">3 friends • 2 active projects</text>
+
+<rect x="120" y="710" width="930" height="180" rx="28" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/>
+<text x="146" y="766" class="h2">hallway choir</text>
+<text x="146" y="802" class="muted">5 friends • 1 active project</text>
+<text x="120" y="970" class="h2">active projects</text>
+<rect x="120" y="1020" width="930" height="210" rx="28" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/>
+<text x="146" y="1076" class="h2">ye (remake)</text>
+<text x="146" y="1112" class="muted">progress: 42% cover revealed</text>
+<text x="146" y="1160" class="faint">needs: kick, snare, keys, vocal texture</text>
+<rect x="120" y="1250" width="930" height="210" rx="28" fill="#0f0f13" stroke="#2a2a33" stroke-width="2"/>
+<text x="146" y="1306" class="h2">carti (too hard)</text>
+<text x="146" y="1342" class="muted">progress: 8% cover revealed</text>
+<text x="146" y="1390" class="faint">needs: hi-hats, glitch, adlibs</text>
+<rect x="120" y="2260" width="930" height="88" class="ctaBox"/>
+<text x="585.0" y="2317" text-anchor="middle" class="ctaBoxText">start a new project</text>
+<text x="120" y="2385" class="faint">lowercase. no clutter. one thing at a time.</text></svg>
