@@ -1,0 +1,146 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> /Contents 7 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+7 0 obj
+<< /Length 9212 >>
+stream
+0.050 0.050 0.060 rg
+0.00 0.00 612.00 792.00 re f
+0.090 0.090 0.110 rg
+0.00 0.00 94.00 792.00 re f
+0.940 0.940 0.940 rg
+BT /F2 11.00 Tf 1 0 0 1 14.00 736.00 Tm (crowd∑noise) Tj ET
+BT /F1 9.00 Tf 1 0 0 1 14.00 718.00 Tm (collab) Tj ET
+BT /F1 9.00 Tf 1 0 0 1 14.00 704.00 Tm (sampling) Tj ET
+BT /F1 9.00 Tf 1 0 0 1 14.00 690.00 Tm (provenance) Tj ET
+BT /F1 9.00 Tf 1 0 0 1 14.00 676.00 Tm (album unlock) Tj ET
+0.940 0.940 0.940 rg
+BT /F2 21.86 Tf 1 0 0 1 140.00 724.14 Tm (crowd∑noise) Tj ET
+0.720 0.720 0.740 rg
+BT /F1 8.59 Tf 1 0 0 1 140.00 705.55 Tm (make an album with your friends. sample the world. prove where every sound came from.) Tj ET
+0.940 0.940 0.940 rg
+0.280 0.280 0.320 RG
+0.8 w
+140.00 695.55 m 566.00 695.55 l S
+0.940 0.940 0.940 rg
+0.720 0.720 0.740 rg
+BT /F2 8.20 Tf 1 0 0 1 140.00 673.08 Tm (concept \(what it is\)) Tj ET
+0.940 0.940 0.940 rg
+BT /F1 7.03 Tf 1 0 0 1 140.00 663.71 Tm (crowd∑noise is a community-based, gamified music production app where groups of friends recreate well-known songs using tiny) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 654.34 Tm (recordings \(~0.1-10s\) captured from themselves + their environment. you transform those clips with an in-app sound changer,) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 644.97 Tm (layer them into a remake, and unlock more of the album artwork as it improves.) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 633.60 Tm (the twist: every transformed sound keeps its provenance--you can always reveal the original audio/video source and see the story) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 624.24 Tm (behind the sample.) Tj ET
+0.720 0.720 0.740 rg
+BT /F2 8.20 Tf 1 0 0 1 140.00 606.01 Tm (goal / purpose \(why it exists\)) Tj ET
+0.940 0.940 0.940 rg
+BT /F1 7.03 Tf 1 0 0 1 140.00 596.64 Tm (- make music feel accessible: no gear, no studio--just a phone and curiosity.) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 587.27 Tm (- make collaboration the instrument: friends split the work, trade samples, and build a shared library.) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 577.90 Tm (- make sampling legible: remakes are fun, but the "where did that sound come from?" moment is the point.) Tj ET
+0.720 0.720 0.740 rg
+BT /F2 8.20 Tf 1 0 0 1 140.00 561.68 Tm (what makes it different) Tj ET
+0.940 0.940 0.940 rg
+BT /F1 7.03 Tf 1 0 0 1 140.00 552.31 Tm (- album-reveal progression: better remakes = more of the cover revealed \(progress you can see\).) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 542.94 Tm (- provenance-first sampling: any effect chain can be rewound to the original clip; credit is built in.) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 533.57 Tm (- assignment-based collaboration: the app can hand out "make this sound" tasks so everyone contributes.) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 524.20 Tm (- indie, minimal ux: lowercases, no clutter--like [untitled], but for collaborative remakes.) Tj ET
+0.720 0.720 0.740 rg
+BT /F2 8.20 Tf 1 0 0 1 140.00 507.98 Tm (target audience) Tj ET
+0.940 0.940 0.940 rg
+BT /F1 7.03 Tf 1 0 0 1 140.00 498.61 Tm (- people who love music and want to make it with friends--especially without instruments or equipment) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 489.24 Tm (- broad age range; especially good for hip-hop / sample-driven listening habits \(high remixability\)) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 479.87 Tm (- users who want music to feel less corporatized and more playful + community-owned) Tj ET
+0.720 0.720 0.740 rg
+BT /F2 8.20 Tf 1 0 0 1 140.00 463.65 Tm (core loop \(what you do\)) Tj ET
+0.940 0.940 0.940 rg
+BT /F1 7.03 Tf 1 0 0 1 140.00 454.28 Tm (1. form / join a group) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 444.91 Tm (2. pick an album or song to remake) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 435.54 Tm (3. the project shows the sounds you need \(or assigns parts to teammates\)) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 426.17 Tm (4. record/upload micro-clips + trim fast) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 416.80 Tm (5. transform clips with simple effects \(sound changer\)) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 407.43 Tm (6. layer tracks into the remake + swap elements \(e.g., "replace drums with our drums"\)) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 398.06 Tm (7. submit / share; get votes + climb leaderboards) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 388.70 Tm (8. unlock more cover art; keep building your shared sample library) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 379.33 Tm (9. anytime: open provenance and trace any sound back to its original clip) Tj ET
+0.720 0.720 0.740 rg
+BT /F2 8.20 Tf 1 0 0 1 140.00 363.10 Tm (ui \(key screens\)) Tj ET
+0.940 0.940 0.940 rg
+BT /F2 7.03 Tf 1 0 0 1 140.00 353.73 Tm (home - ) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 164.24 353.73 Tm (groups + active projects \(calm + social\)) Tj ET
+BT /F2 7.03 Tf 1 0 0 1 362.00 353.73 Tm (project - ) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 394.89 353.73 Tm (layered tracks with simple controls \(focused\)) Tj ET
+BT /F2 7.03 Tf 1 0 0 1 140.00 342.36 Tm (recording - ) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 178.51 342.36 Tm (one button, no clutter \(full-screen\)) Tj ET
+BT /F2 7.03 Tf 1 0 0 1 362.00 342.36 Tm (editing - ) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 391.51 342.36 Tm (a few sliders + real-time preview \(minimal\)) Tj ET
+BT /F2 7.03 Tf 1 0 0 1 140.00 330.99 Tm (album - ) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 166.21 330.99 Tm (artwork slowly revealed as progress is made) Tj ET
+BT /F2 7.03 Tf 1 0 0 1 362.00 330.99 Tm (provenance - ) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 405.85 330.99 Tm (a clean chain showing where sounds came from) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 152.00 321.63 Tm (\(rewarding\)) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 374.00 321.63 Tm (\(transparent\)) Tj ET
+0.720 0.720 0.740 rg
+BT /F2 8.20 Tf 1 0 0 1 140.00 303.40 Tm (how i'll communicate it \(demo + story\)) Tj ET
+0.940 0.940 0.940 rg
+BT /F1 7.03 Tf 1 0 0 1 140.00 294.03 Tm (- 30-second hook: "we remade a song using only table taps + keys + a basketball.") Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 284.66 Tm (- before/after moment: play the original bar -> play the remake bar -> show the layer stack.) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 275.29 Tm (- provenance reveal: tap a sound -> watch it rewind to the original clip \(credit + context\).) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 265.92 Tm (- shareable artifacts: export the remake + a provenance card \(what we used + who made what\).) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 256.56 Tm (- community angle: feature weekly remakes + "hard albums" challenges with extra rewards.) Tj ET
+0.720 0.720 0.740 rg
+BT /F2 8.20 Tf 1 0 0 1 140.00 240.33 Tm (technical specifications \(how it could be built\)) Tj ET
+0.940 0.940 0.940 rg
+BT /F1 7.03 Tf 1 0 0 1 140.00 230.96 Tm (- technology stack: mobile \(ios + android\); native or cross-platform; on-device recording/editing; backend for) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 152.00 221.59 Tm (auth/projects/storage/feeds) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 212.22 Tm (- architecture: separate audio engine + project state from ui; async collaboration via project events; provenance as first-class) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 152.00 202.86 Tm (data) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 193.49 Tm (- data model \(sketch\): project / clip / sound \(derived + effect chain + original pointer\) / track layer) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 184.12 Tm (- security & performance: clear mic/camera permissions; per-project privacy; caching + background uploads; keep originals) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 152.00 174.75 Tm (while streaming lightweight versions) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 165.38 Tm (- core features) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 156.01 Tm (- recording / uploading: capture short video/audio clips \(~0.1-10s\) with fast trimming) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 146.64 Tm (- sound changer: simple effects to turn raw clips into usable instruments \(preview in realtime\)) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 137.27 Tm (- replace sounds in a song: swap original elements \(e.g., drums\) with your group's sounds and hear the remake) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 127.90 Tm (- layered mixing: basic track stack \(volume, mute/solo, timing nudges\) without overwhelming controls) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 118.53 Tm (- shared sample library: save edited sounds with friends; reuse across projects) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 109.17 Tm (- assignment system: assign parts of a track to specific people \("you make this snare"\) to drive collaboration) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 99.80 Tm (- leaderboards + voting: showcase album remakes; community votes on creativity + quality) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 90.43 Tm (- difficulty ranking + rewards: easier->harder albums/songs; bigger rewards for harder remakes) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 81.06 Tm (- album unlock progression: cover art reveals as your remake improves) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 71.69 Tm (- provenance view \(most important\): tap any sound to reveal the original source clip and transformation chain) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 140.00 62.32 Tm (- aesthetics \(look\): [untitled]-inspired minimalism--lowercases everywhere, clean spacing, calm hierarchy; recording + making) Tj ET
+BT /F1 7.03 Tf 1 0 0 1 152.00 52.95 Tm (should feel unblocked \(few controls, obvious defaults, no clutter\)) Tj ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000267 00000 n 
+0000000337 00000 n 
+0000000412 00000 n 
+0000000480 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+9743
+%%EOF
