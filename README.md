@@ -12,6 +12,8 @@
 
 ## concept (what it is)
 
+video: https://drive.google.com/file/d/1hLRHpZ6qzNLOpuLhoGe_CCP-LmtbJJEc/view?usp=sharing
+
 **crowd·noise** is a community-based, gamified music production app where groups of friends recreate well-known songs using **tiny recordings (≈0.1–10s)** captured from themselves + their environment. you transform those clips with an in‑app sound changer, layer them into a remake, and **unlock more of the album artwork as it improves**.
 
 the twist: **every transformed sound keeps its provenance**—you can always reveal the original audio/video source and see the story behind the sample.
