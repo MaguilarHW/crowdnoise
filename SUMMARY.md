@@ -4,7 +4,7 @@
 
 # crowd·noise
 
-*make an album with your friends. sample the world. prove where every sound came from.*
+_make an album with your friends. sample the world. prove where every sound came from._
 
 </div>
 
@@ -28,7 +28,7 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 
 ## what makes it different
 
-- **album-reveal progression**: better remakes = more of the cover revealed (progress you can *see*).
+- **album-reveal progression**: better remakes = more of the cover revealed (progress you can _see_).
 - **provenance-first sampling**: any effect chain can be rewound to the original clip; credit is built in.
 - **assignment-based collaboration**: the app can hand out “make this sound” tasks so everyone contributes.
 - **indie, minimal ux**: lowercases, no clutter—like [untitled], but for collaborative remakes.
@@ -45,37 +45,37 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 
 ## core loop (what you do)
 
-1. form / join a group  
-2. pick an album or song to remake  
-3. the project shows the sounds you need (or assigns parts to teammates)  
-4. record/upload micro-clips + trim fast  
-5. transform clips with simple effects (sound changer)  
-6. layer tracks into the remake + swap elements (e.g., “replace drums with our drums”)  
-7. submit / share; get votes + climb leaderboards  
-8. unlock more cover art; keep building your shared sample library  
+1. form / join a group
+2. pick an album or song to remake
+3. the project shows the sounds you need (or assigns parts to teammates)
+4. record/upload micro-clips + trim fast
+5. transform clips with simple effects (sound changer)
+6. layer tracks into the remake + swap elements (e.g., “replace drums with our drums”)
+7. submit / share; get votes + climb leaderboards
+8. unlock more cover art; keep building your shared sample library
 9. anytime: open provenance and trace any sound back to its original clip
 
 ---
 
 ## ui (key screens)
 
-| screen | vibe | what you see |
-|---|---|---|
-| **home** | calm + social | groups + active projects |
-| **project** | focused | layered tracks with simple controls |
-| **recording** | full-screen | one button, no clutter |
-| **editing** | minimal | a few sliders + real-time preview |
-| **album** | rewarding | artwork slowly revealed as progress is made |
-| **provenance** | transparent | a clean chain showing where sounds came from |
+| screen         | vibe          | what you see                                 |
+| -------------- | ------------- | -------------------------------------------- |
+| **home**       | calm + social | groups + active projects                     |
+| **project**    | focused       | layered tracks with simple controls          |
+| **recording**  | full-screen   | one button, no clutter                       |
+| **editing**    | minimal       | a few sliders + real-time preview            |
+| **album**      | rewarding     | artwork slowly revealed as progress is made  |
+| **provenance** | transparent   | a clean chain showing where sounds came from |
 
 ---
 
 ## how i’ll communicate it (demo + story)
 
-- **30-second hook**: “we remade a song using only table taps + keys + a basketball.”  
-- **before/after moment**: play the original bar → play the remake bar → show the layer stack.  
-- **provenance reveal**: tap a sound → watch it rewind to the original clip (credit + context).  
-- **shareable artifacts**: export the remake + a provenance card (what we used + who made what).  
+- **30-second hook**: “we remade a song using only table taps + keys + a basketball.”
+- **before/after moment**: play the original bar → play the remake bar → show the layer stack.
+- **provenance reveal**: tap a sound → watch it rewind to the original clip (credit + context).
+- **shareable artifacts**: export the remake + a provenance card (what we used + who made what).
 - **community angle**: feature weekly remakes + “hard albums” challenges with extra rewards.
 
 ---
