@@ -30,7 +30,8 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 
 - **album-reveal progression**: better remakes = more of the cover revealed (progress you can _see_).
 - **provenance-first sampling**: any effect chain can be rewound to the original clip; credit is built in.
-- **assignment-based collaboration**: the app can hand out “make this sound” tasks so everyone contributes.
+- **collectible sample cards**: transformed sounds become shareable cards with rarity tiers based on transformation complexity.
+- **assignment-based collaboration**: the app can hand out "make this sound" tasks so everyone contributes.
 - **indie, minimal ux**: lowercases, no clutter—like [untitled], but for collaborative remakes.
 
 ---
@@ -93,10 +94,11 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 - **replace sounds in a song**: swap original elements (e.g., drums) with your group’s sounds and hear the remake
 - **layered mixing**: basic track stack (volume, mute/solo, timing nudges) without overwhelming controls
 - **shared sample library**: save edited sounds with friends; reuse across projects
-- **assignment system**: assign parts of a track to specific people (“you make this snare”) to drive collaboration
+- **assignment system**: assign parts of a track to specific people ("you make this snare") to drive collaboration
 - **leaderboards + voting**: showcase album remakes; community votes on creativity + quality
 - **difficulty ranking + rewards**: easier→harder albums/songs; bigger rewards for harder remakes
 - **album unlock progression**: cover art reveals as your remake improves
 - **provenance view (most important)**: tap any sound to reveal the original source clip and transformation chain
+- **collectible sample cards**: each transformed sound becomes a shareable card showing original video, transformation chain, creator, and output; rarity tiers (common/rare/epic/legendary) based on transformation complexity
 
 - **aesthetics (look)**: [untitled]-inspired minimalism—lowercases everywhere, clean spacing, calm hierarchy; recording + making should feel unblocked (few controls, obvious defaults, no clutter)

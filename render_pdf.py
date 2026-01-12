@@ -536,15 +536,15 @@ def render_one(doc: Doc, theme_path: Path, out_path: Path) -> None:
 
 
 def main() -> int:
-    root = Path(__file__).resolve().parents[1]
+    root = Path(__file__).resolve().parent
     summary_path = root / "SUMMARY.md"
-    pdf_dir = root / "pdf"
+    pdf_dir = root / "deliverables" / "pdf"
     pdf_dir.mkdir(parents=True, exist_ok=True)
 
     doc = parse_summary_md(summary_path.read_text(encoding="utf-8"))
 
-    render_one(doc, pdf_dir / "theme_minimal.json", root / "crowdnoise_summary_minimal.pdf")
-    render_one(doc, pdf_dir / "theme_designed.json", root / "crowdnoise_summary_designed.pdf")
+    render_one(doc, root / "theme_minimal.json", root / "crowdnoise_summary_minimal.pdf")
+    render_one(doc, root / "theme_designed.json", pdf_dir / "crowdnoise_summary_designed.pdf")
 
     return 0
 
