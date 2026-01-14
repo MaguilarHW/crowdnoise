@@ -1,6 +1,6 @@
 # crowd·noise
 
-*make an album with your friends. sample the world. prove where every sound came from.*
+_make an album with your friends. sample the world. prove where every sound came from._
 video: https://drive.google.com/file/d/1hLRHpZ6qzNLOpuLhoGe_CCP-LmtbJJEc/view?usp=sharing
 
 ---
@@ -55,14 +55,14 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 
 ## UI (Key Screens)
 
-| Screen | Vibe | What You See |
-|--------|------|--------------|
-| **home** | calm + social | groups + active projects |
-| **project** | focused | layered tracks with simple controls |
-| **recording** | full-screen | one button, no clutter |
-| **editing** | minimal | a few sliders + real-time preview |
-| **album** | rewarding | artwork slowly revealed as progress is made |
-| **provenance** | transparent | a clean chain showing where sounds came from |
+| Screen         | Vibe          | What You See                                 |
+| -------------- | ------------- | -------------------------------------------- |
+| **home**       | calm + social | groups + active projects                     |
+| **project**    | focused       | layered tracks with simple controls          |
+| **recording**  | full-screen   | one button, no clutter                       |
+| **editing**    | minimal       | a few sliders + real-time preview            |
+| **album**      | rewarding     | artwork slowly revealed as progress is made  |
+| **provenance** | transparent   | a clean chain showing where sounds came from |
 
 ---
 
@@ -96,20 +96,25 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 
 ### Core Features
 
+#### Original Design Features
+
 - **recording / uploading**: capture short video/audio clips (≈0.1–10s) with fast trimming
 - **sound changer**: simple effects to turn raw clips into usable instruments (preview in realtime)
 - **replace sounds in a song**: swap original elements (e.g., drums) with your group's sounds and hear the remake
 - **layered mixing**: basic track stack (volume, mute/solo, timing nudges) without overwhelming controls
 - **shared sample library**: save edited sounds with friends; reuse across projects
 - **assignment system**: assign parts of a track to specific people ("you make this snare") to drive collaboration
-- **reminder system**: keep project mates engaged with notifications and prompts
-- **music-taste-based friend discovery**: connect with music-lovers who share similar tastes, even if you're not friends yet
 - **leaderboards + voting**: showcase album remakes; community votes on creativity + quality
-- **commenting system**: admire and discuss creativity in remakes; celebrate the unique approaches different groups take
 - **difficulty ranking + rewards**: easier→harder albums/songs; bigger rewards for harder remakes
 - **album unlock progression**: cover art reveals as your remake improves
 - **provenance view (most important)**: tap any sound to reveal the original source clip and transformation chain
 - **collectible sample cards**: each transformed sound becomes a shareable card showing original video, transformation chain, creator, and output; rarity tiers (common/rare/epic/legendary) based on transformation complexity
+
+#### Additions Based on Feedback
+
+- **reminder system**: keep project mates engaged with notifications and prompts _(added in response to: "How can users keep their project mates on top of it?")_
+- **music-taste-based friend discovery**: connect with music-lovers who share similar tastes, even if you're not friends yet _(added in response to: "Is it possible for music-lovers who aren't friends to connect with each other?")_
+- **commenting system**: admire and discuss creativity in remakes; celebrate the unique approaches different groups take _(added in response to: "Why should they listen to the remake if the sounds that are being mimicked are going to sound very similar?")_
 
 ### Aesthetics (Look)
 
