@@ -19,7 +19,7 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
 endobj
 7 0 obj
-<< /Length 8587 >>
+<< /Length 9040 >>
 stream
 0.060 0.060 0.070 rg
 0.00 0.00 612.00 792.00 re f
@@ -100,14 +100,17 @@ BT /F1 6.75 Tf 1 0 0 1 54.00 178.78 Tm (- replace sounds in a song: swap origina
 BT /F1 6.75 Tf 1 0 0 1 54.00 169.98 Tm (- layered mixing: basic track stack \(volume, mute/solo, timing nudges\) without overwhelming controls) Tj ET
 BT /F1 6.75 Tf 1 0 0 1 54.00 161.17 Tm (- shared sample library: save edited sounds with friends; reuse across projects) Tj ET
 BT /F1 6.75 Tf 1 0 0 1 54.00 152.36 Tm (- assignment system: assign parts of a track to specific people \("you make this snare"\) to drive collaboration) Tj ET
-BT /F1 6.75 Tf 1 0 0 1 54.00 143.55 Tm (- leaderboards + voting: showcase album remakes; community votes on creativity + quality) Tj ET
-BT /F1 6.75 Tf 1 0 0 1 54.00 134.75 Tm (- difficulty ranking + rewards: easier->harder albums/songs; bigger rewards for harder remakes) Tj ET
-BT /F1 6.75 Tf 1 0 0 1 54.00 125.94 Tm (- album unlock progression: cover art reveals as your remake improves) Tj ET
-BT /F1 6.75 Tf 1 0 0 1 54.00 117.13 Tm (- provenance view \(most important\): tap any sound to reveal the original source clip and transformation chain) Tj ET
-BT /F1 6.75 Tf 1 0 0 1 54.00 108.33 Tm (- collectible sample cards: each transformed sound becomes a shareable card showing original video, transformation chain, creator, and output; rarity tiers) Tj ET
-BT /F1 6.75 Tf 1 0 0 1 66.00 99.52 Tm (\(common/rare/epic/legendary\) based on transformation complexity) Tj ET
-BT /F1 6.75 Tf 1 0 0 1 54.00 90.71 Tm (- aesthetics \(look\): [untitled]-inspired minimalism--lowercases everywhere, clean spacing, calm hierarchy; recording + making should feel unblocked \(few) Tj ET
-BT /F1 6.75 Tf 1 0 0 1 66.00 81.91 Tm (controls, obvious defaults, no clutter\)) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 54.00 143.55 Tm (- reminder system: keep project mates engaged with notifications and prompts) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 54.00 134.75 Tm (- music-taste-based friend discovery: connect with music-lovers who share similar tastes, even if you're not friends yet) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 54.00 125.94 Tm (- leaderboards + voting: showcase album remakes; community votes on creativity + quality) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 54.00 117.13 Tm (- commenting system: admire and discuss creativity in remakes; celebrate the unique approaches different groups take) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 54.00 108.33 Tm (- difficulty ranking + rewards: easier->harder albums/songs; bigger rewards for harder remakes) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 54.00 99.52 Tm (- album unlock progression: cover art reveals as your remake improves) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 54.00 90.71 Tm (- provenance view \(most important\): tap any sound to reveal the original source clip and transformation chain) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 54.00 81.91 Tm (- collectible sample cards: each transformed sound becomes a shareable card showing original video, transformation chain, creator, and output; rarity tiers) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 66.00 73.10 Tm (\(common/rare/epic/legendary\) based on transformation complexity) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 54.00 64.29 Tm (- aesthetics \(look\): [untitled]-inspired minimalism--lowercases everywhere, clean spacing, calm hierarchy; recording + making should feel unblocked \(few) Tj ET
+BT /F1 6.75 Tf 1 0 0 1 66.00 55.49 Tm (controls, obvious defaults, no clutter\)) Tj ET
 endstream
 endobj
 xref
@@ -123,5 +126,5 @@ xref
 trailer
 << /Size 8 /Root 1 0 R >>
 startxref
-9118
+9571
 %%EOF
