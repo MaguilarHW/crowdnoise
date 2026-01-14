@@ -1,16 +1,10 @@
-<!-- crowd·noise — one-page summary (source for pdf export) -->
-
-<div align="center">
-
 # crowd·noise
 
 _make an album with your friends. sample the world. prove where every sound came from._
 
-</div>
-
 ---
 
-## concept (what it is)
+## Concept (What It Is)
 
 **crowd·noise** is a community-based, gamified music production app where groups of friends recreate well-known songs using **tiny recordings (≈0.1–10s)** captured from themselves + their environment. you transform those clips with an in‑app sound changer, layer them into a remake, and **unlock more of the album artwork as it improves**.
 
@@ -18,15 +12,15 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 
 ---
 
-## goal / purpose (why it exists)
+## Goal / Purpose (Why It Exists)
 
 - **make music feel accessible**: no gear, no studio—just a phone and curiosity.
 - **make collaboration the instrument**: friends split the work, trade samples, and build a shared library.
-- **make sampling legible**: remakes are fun, but the “where did that sound come from?” moment is the point.
+- **make sampling legible**: remakes are fun, but the "where did that sound come from?" moment is the point.
 
 ---
 
-## what makes it different
+## What Makes It Different
 
 - **album-reveal progression**: better remakes = more of the cover revealed (progress you can _see_).
 - **provenance-first sampling**: any effect chain can be rewound to the original clip; credit is built in.
@@ -36,7 +30,7 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 
 ---
 
-## target audience
+## Target Audience
 
 - **people who love music** and want to make it with friends—especially without instruments or equipment
 - broad age range; especially good for **hip-hop / sample-driven** listening habits (high remixability)
@@ -44,23 +38,23 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 
 ---
 
-## core loop (what you do)
+## Core Loop (What You Do)
 
 1. form / join a group
 2. pick an album or song to remake
 3. the project shows the sounds you need (or assigns parts to teammates)
 4. record/upload micro-clips + trim fast
 5. transform clips with simple effects (sound changer)
-6. layer tracks into the remake + swap elements (e.g., “replace drums with our drums”)
+6. layer tracks into the remake + swap elements (e.g., "replace drums with our drums")
 7. submit / share; get votes + climb leaderboards
 8. unlock more cover art; keep building your shared sample library
 9. anytime: open provenance and trace any sound back to its original clip
 
 ---
 
-## ui (key screens)
+## UI (Key Screens)
 
-| screen         | vibe          | what you see                                 |
+| Screen         | Vibe          | What You See                                 |
 | -------------- | ------------- | -------------------------------------------- |
 | **home**       | calm + social | groups + active projects                     |
 | **project**    | focused       | layered tracks with simple controls          |
@@ -71,27 +65,39 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 
 ---
 
-## how i’ll communicate it (demo + story)
+## How I'll Communicate It (Demo + Story)
 
-- **30-second hook**: “we remade a song using only table taps + keys + a basketball.”
+- **30-second hook**: "we remade a song using only table taps + keys + a basketball."
 - **before/after moment**: play the original bar → play the remake bar → show the layer stack.
 - **provenance reveal**: tap a sound → watch it rewind to the original clip (credit + context).
 - **shareable artifacts**: export the remake + a provenance card (what we used + who made what).
-- **community angle**: feature weekly remakes + “hard albums” challenges with extra rewards.
+- **community angle**: feature weekly remakes + "hard albums" challenges with extra rewards.
 
 ---
 
-## technical specifications (how it could be built)
+## Technical Specifications (How It Could Be Built)
 
-- **technology stack**: mobile (ios + android); native or cross-platform; on-device recording/editing; backend for auth/projects/storage/feeds
-- **architecture**: separate audio engine + project state from ui; async collaboration via project events; provenance as first-class data
-- **data model (sketch)**: project / clip / sound (derived + effect chain + original pointer) / track layer
-- **security & performance**: clear mic/camera permissions; per-project privacy; caching + background uploads; keep originals while streaming lightweight versions
-- **core features**
+### Technology Stack
+
+- mobile (ios + android); native or cross-platform; on-device recording/editing; backend for auth/projects/storage/feeds
+
+### Architecture
+
+- separate audio engine + project state from ui; async collaboration via project events; provenance as first-class data
+
+### Data Model (Sketch)
+
+- project / clip / sound (derived + effect chain + original pointer) / track layer
+
+### Security & Performance
+
+- clear mic/camera permissions; per-project privacy; caching + background uploads; keep originals while streaming lightweight versions
+
+### Core Features
 
 - **recording / uploading**: capture short video/audio clips (≈0.1–10s) with fast trimming
 - **sound changer**: simple effects to turn raw clips into usable instruments (preview in realtime)
-- **replace sounds in a song**: swap original elements (e.g., drums) with your group’s sounds and hear the remake
+- **replace sounds in a song**: swap original elements (e.g., drums) with your group's sounds and hear the remake
 - **layered mixing**: basic track stack (volume, mute/solo, timing nudges) without overwhelming controls
 - **shared sample library**: save edited sounds with friends; reuse across projects
 - **assignment system**: assign parts of a track to specific people ("you make this snare") to drive collaboration
@@ -104,4 +110,6 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 - **provenance view (most important)**: tap any sound to reveal the original source clip and transformation chain
 - **collectible sample cards**: each transformed sound becomes a shareable card showing original video, transformation chain, creator, and output; rarity tiers (common/rare/epic/legendary) based on transformation complexity
 
-- **aesthetics (look)**: [untitled]-inspired minimalism—lowercases everywhere, clean spacing, calm hierarchy; recording + making should feel unblocked (few controls, obvious defaults, no clutter)
+### Aesthetics (Look)
+
+- [untitled]-inspired minimalism—lowercases everywhere, clean spacing, calm hierarchy; recording + making should feel unblocked (few controls, obvious defaults, no clutter)
