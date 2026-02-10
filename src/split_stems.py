@@ -24,7 +24,9 @@ def main() -> int:
         print("Create it and add audio files (.wav/.mp3/.flac), then rerun.")
         return 1
 
-    input_files = [p for p in input_dir.iterdir() if p.is_file()]
+    input_files = [
+        p for p in input_dir.iterdir() if p.is_file() and p.name != ".gitkeep"
+    ]
     if not input_files:
         print(f"No files found in {input_dir}")
         print("Add audio files and rerun.")
@@ -32,7 +34,17 @@ def main() -> int:
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    cmd = [sys.executable, "-m", "demucs", "-n", "htdemucs", "-o", str(output_dir), *map(str, input_files)]
+    cmd = [
+        sys.executable,
+        "-m",
+        "demucs",
+        "-n",
+        "htdemucs",
+        "--mp3",
+        "-o",
+        str(output_dir),
+        *map(str, input_files),
+    ]
     return subprocess.call(cmd)
 
 
