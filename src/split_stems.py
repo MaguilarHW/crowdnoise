@@ -33,6 +33,18 @@ def main() -> int:
         return 1
 
     output_dir.mkdir(parents=True, exist_ok=True)
+    model_output_dir = output_dir / "htdemucs"
+    pending_files = []
+    for input_file in input_files:
+        stem_output_dir = model_output_dir / input_file.stem
+        if stem_output_dir.is_dir() and any(stem_output_dir.iterdir()):
+            print(f"Skipping already-split track: {input_file.name}")
+            continue
+        pending_files.append(input_file)
+
+    if not pending_files:
+        print("All tracks already split. Nothing to do.")
+        return 0
 
     cmd = [
         sys.executable,
@@ -43,7 +55,7 @@ def main() -> int:
         "--mp3",
         "-o",
         str(output_dir),
-        *map(str, input_files),
+        *map(str, pending_files),
     ]
     return subprocess.call(cmd)
 
