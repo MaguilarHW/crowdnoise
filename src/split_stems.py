@@ -9,6 +9,7 @@ def main() -> int:
     project_root = Path(__file__).resolve().parents[1]
     input_dir = project_root / "resources"
     output_dir = project_root / "output"
+    model_name = "htdemucs_6s"
 
     if find_spec("demucs") is None:
         print("demucs not found in this Python environment.")
@@ -33,7 +34,7 @@ def main() -> int:
         return 1
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    model_output_dir = output_dir / "htdemucs"
+    model_output_dir = output_dir / model_name
     pending_files = []
     for input_file in input_files:
         stem_output_dir = model_output_dir / input_file.stem
@@ -51,7 +52,7 @@ def main() -> int:
         "-m",
         "demucs",
         "-n",
-        "htdemucs",
+        model_name,
         "--mp3",
         "-o",
         str(output_dir),
