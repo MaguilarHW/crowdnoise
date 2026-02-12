@@ -2,9 +2,9 @@
 """
 Extract MIDI from an audio file using Spotify Basic Pitch.
 
-Default behavior matches this repo layout:
-  - input:  resources/trimmedGuitarSolo.mp3
-  - output: output/trimmedGuitarSolo.mid
+Default repo layout (if you pass a file from `resources/`):
+  - input:  resources/<file>.mp3
+  - output: output/trackDecomp/<file>.mid
 
 Setup:
   pip install basic-pitch
@@ -29,7 +29,7 @@ def _require_python310() -> None:
         raise RuntimeError(
             f"This script must be run with Python 3.10 (you are running {major}.{minor}).\n"
             "Run it with:\n"
-            "  python3.10 src/basic_pitch_to_midi.py\n"
+            "  python3.10 src/basic_pitch_to_midi.py path/to/audio.mp3\n"
         )
 
 
@@ -113,21 +113,23 @@ def main(argv: list[str] | None = None) -> int:
 
     parser = argparse.ArgumentParser(description="Extract MIDI using Spotify Basic Pitch.")
     parser.add_argument(
-        "--audio",
+        "audio",
         type=Path,
-        default=root / "resources" / "trimmedGuitarSolo.mp3",
         help="Path to input audio file.",
     )
     parser.add_argument(
         "--out",
         type=Path,
-        default=root / "output" / "trimmedGuitarSolo.mid",
-        help="Path to output .mid file.",
+        default=None,
+        help="Path to output .mid file. Defaults to output/trackDecomp/<audio-stem>.mid",
     )
     args = parser.parse_args(argv)
 
     try:
-        out = extract_midi(args.audio, args.out)
+        out_path = args.out
+        if out_path is None:
+            out_path = root / "output" / "trackDecomp" / f"{args.audio.stem}.mid"
+        out = extract_midi(args.audio, out_path)
     except Exception as e:  # noqa: BLE001 - CLI script
         msg = str(e).strip() or e.__class__.__name__
         print(f"ERROR: {msg}", file=sys.stderr)
