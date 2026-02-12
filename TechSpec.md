@@ -1,8 +1,11 @@
-This branch uses Spotify Basic Pitch: pip install basic-pitch
-NOTE: Basic Pitch only functions using python 3.10!
+Things worked on:
 
-This program can take in an mp3 file and extract the notes, storing them in a .mid file. However, only one instrument should be present in the mp3!
+Created scrape_audio which takes audio from YT or internet archive when given a title of a song.
+Created split_stems which takes the downloaded mp3 from resources/ and puts it in output/ using Demucs
+- There is an error currently where the file cannot save properly after being split
 
-Once a song has been broken down into tracks, each individual instrument must be broken down into short, easily recordable samples. Melodic samples must be broken down into notes, so the app can reconstruct the entire melody from a single recording. Basic Pitch performs this operation. It does NOT break down percussion/bass tracks effectively.
+Separating track /Users/maguilar/Documents/HTCS_Projects/crowdnoise/resources/.gitkeep
+Could not load file /Users/maguilar/Documents/HTCS_Projects/crowdnoise/resources/.gitkeep. Maybe it is not a supported file format? 
+When trying to load using ffmpeg, got the following error: FFmpeg could not read the file.
 
-To run: python3.10 src/basic_pitch_to_midi.py
+This needs to be resolved
