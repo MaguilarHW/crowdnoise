@@ -1,0 +1,13 @@
+Work completed:
+- Added `src/split_stems.py` to split audio in `resources/` into stems via Demucs CLI.
+- Added `resources/` input folder (tracked via `.gitkeep`) for drop-in audio files.
+- Added `src/youtube_audio.py` to download MP3 from YouTube based on a song title.
+- Updated `src/youtube_audio.py` to prompt for a title if no CLI args are provided.
+
+Dependencies:
+- `demucs` (CLI): `pip install -U demucs`
+- `yt-dlp` (YouTube audio download): `pip install -U yt-dlp`
+
+Usage:
+- Download audio: `python3 src/youtube_audio.py "Song Title Artist"` (or run with no args to prompt)
+- Split stems: `python3 src/split_stems.py`
