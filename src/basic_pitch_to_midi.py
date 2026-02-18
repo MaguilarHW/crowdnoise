@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.10
+#!/usr/bin/env python3
 """
 Extract MIDI from an audio file using Spotify Basic Pitch.
 
@@ -23,13 +23,13 @@ import sys
 from pathlib import Path
 
 
-def _require_python310() -> None:
+def _require_python310_or_newer() -> None:
     major, minor = sys.version_info[:2]
-    if (major, minor) != (3, 10):
+    if (major, minor) < (3, 10):
         raise RuntimeError(
-            f"This script must be run with Python 3.10 (you are running {major}.{minor}).\n"
+            f"This script must be run with Python 3.10+ (you are running {major}.{minor}).\n"
             "Run it with:\n"
-            "  python3.10 src/basic_pitch_to_midi.py path/to/audio.mp3\n"
+            "  python3 src/basic_pitch_to_midi.py path/to/audio.mp3\n"
         )
 
 
@@ -108,7 +108,7 @@ def extract_midi(audio_path: Path, out_midi_path: Path) -> Path:
 
 
 def main(argv: list[str] | None = None) -> int:
-    _require_python310()
+    _require_python310_or_newer()
     root = _repo_root()
 
     parser = argparse.ArgumentParser(description="Extract MIDI using Spotify Basic Pitch.")
