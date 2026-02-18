@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.10
+#!/usr/bin/env python3
 """
 Isolate "low" and "high" percussion from a drum/percussion track using filters.
 
@@ -31,20 +31,34 @@ from pathlib import Path
 
 import numpy as np
 
+DEMUX_STEM_NAMES = {"drums", "bass", "other", "vocals", "guitar", "piano"}
 
-def _require_python310() -> None:
+
+def _require_python310_or_newer() -> None:
     major, minor = sys.version_info[:2]
-    if (major, minor) != (3, 10):
+    if (major, minor) < (3, 10):
         raise RuntimeError(
-            f"This script must be run with Python 3.10 (you are running {major}.{minor}).\n"
+            f"This script must be run with Python 3.10+ (you are running {major}.{minor}).\n"
             "Run it with:\n"
-            "  python3.10 src/isolate_drums.py path/to/audio.mp3\n"
+            "  python3 src/isolate_drums.py path/to/audio.mp3\n"
         )
 
 
 def _repo_root() -> Path:
     # src/isolate_drums.py -> repo root
     return Path(__file__).resolve().parents[1]
+
+
+def _track_output_name(audio_path: Path) -> str:
+    """
+    Name the output folder for this input track.
+
+    For Demucs stem files like ".../<song>/drums.mp3", use "<song>" so the
+    layout mirrors output/htdemucs_6s/<song>/...
+    """
+    if audio_path.stem.lower() in DEMUX_STEM_NAMES and audio_path.parent.name:
+        return audio_path.parent.name
+    return audio_path.stem
 
 
 def _load_mono_audio(audio_path: Path) -> tuple[np.ndarray, int]:
@@ -522,7 +536,7 @@ def _write_mp3(path: Path, y: np.ndarray, sr: int, *, bitrate: str = "192k") -> 
 
 
 def main(argv: list[str] | None = None) -> int:
-    _require_python310()
+    _require_python310_or_newer()
     root = _repo_root()
 
     parser = argparse.ArgumentParser(
@@ -645,10 +659,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"ERROR: {msg}", file=sys.stderr)
         return 1
 
-    out_dir: Path = args.out_dir.resolve()
-    stem = audio_path.stem
-    kick_path = out_dir / f"{stem}_kick.mp3"
-    hats_path = out_dir / f"{stem}_hats.mp3"
+    out_root: Path = args.out_dir.resolve()
+    track_dir = out_root / _track_output_name(audio_path)
+    kick_path = track_dir / "kick.mp3"
+    hats_path = track_dir / "hats.mp3"
 
     try:
         _write_mp3(kick_path, kick_out, sr, bitrate=args.mp3_bitrate)
@@ -686,8 +700,8 @@ def main(argv: list[str] | None = None) -> int:
             print(f"ERROR: hit detection failed: {msg}", file=sys.stderr)
             return 1
 
-        kick_times_path = out_dir / f"{stem}_kick_times.csv"
-        hats_times_path = out_dir / f"{stem}_hats_times.csv"
+        kick_times_path = track_dir / "kick_times.csv"
+        hats_times_path = track_dir / "hats_times.csv"
         _write_times_csv(kick_times_path, kick_times)
         _write_times_csv(hats_times_path, hats_times)
         print(f"Wrote: {kick_times_path}")
@@ -721,14 +735,14 @@ def main(argv: list[str] | None = None) -> int:
             hats_one = _apply_fade(hats_one, sr, fade_ms=args.one_shot_fade_ms)
 
         if kick_one is not None:
-            kick_one_path = out_dir / f"{stem}_kick_one_shot.mp3"
+            kick_one_path = track_dir / "kick_one_shot.mp3"
             _write_mp3(kick_one_path, kick_one, sr, bitrate=args.mp3_bitrate)
             print(f"Wrote: {kick_one_path}")
         else:
             print("WARN: no kick hits detected; skipping kick one-shot.")
 
         if hats_one is not None:
-            hats_one_path = out_dir / f"{stem}_hats_one_shot.mp3"
+            hats_one_path = track_dir / "hats_one_shot.mp3"
             _write_mp3(hats_one_path, hats_one, sr, bitrate=args.mp3_bitrate)
             print(f"Wrote: {hats_one_path}")
         else:
