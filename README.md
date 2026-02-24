@@ -5,6 +5,12 @@ video: https://drive.google.com/file/d/1hLRHpZ6qzNLOpuLhoGe_CCP-LmtbJJEc/view?us
 
 ---
 
+## MVP Scope
+
+For the MVP, we are focusing on **piano + drums** as the primary instrument targets in the decomposition and remake workflow.
+
+---
+
 ## Audio Stems (Demucs)
 
 Split songs into stems using Demucs CLI.
@@ -138,3 +144,20 @@ the twist: **every transformed sound keeps its provenance**—you can always rev
 ### Aesthetics (Look)
 
 - [untitled]-inspired minimalism—lowercases everywhere, clean spacing, calm hierarchy; recording + making should feel unblocked (few controls, obvious defaults, no clutter)
+
+Update-2/16:
+## Mix from a JSON file
+
+This repo includes a small tool that reads a project JSON (instrument MP3 paths + time segments) and exports one combined MP3.
+
+Build:
+
+- `bash ./build_mix_json_cli.sh`
+
+Run:
+
+- `./mix_json_cli testFileFromPersonA.json out.mp3`
+
+Notes:
+- The MP3 paths in the JSON must exist on your computer.
+- `segments` (`start_ms` / `end_ms`) control when each instrument plays.
