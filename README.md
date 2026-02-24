@@ -5,6 +5,12 @@ video: https://drive.google.com/file/d/1hLRHpZ6qzNLOpuLhoGe_CCP-LmtbJJEc/view?us
 
 ---
 
+## MVP Scope
+
+For the MVP, we are focusing on **piano + drums** as the primary instrument targets in the decomposition and remake workflow.
+
+---
+
 ## Audio Stems (Demucs)
 
 Split songs into stems using Demucs CLI.
