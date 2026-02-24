@@ -661,8 +661,9 @@ def main(argv: list[str] | None = None) -> int:
 
     out_root: Path = args.out_dir.resolve()
     track_dir = out_root / _track_output_name(audio_path)
-    kick_path = track_dir / "kick.mp3"
-    hats_path = track_dir / "hats.mp3"
+    drum_dir = track_dir / "drum"
+    kick_path = drum_dir / "kick.mp3"
+    hats_path = drum_dir / "hats.mp3"
 
     try:
         _write_mp3(kick_path, kick_out, sr, bitrate=args.mp3_bitrate)
@@ -700,8 +701,8 @@ def main(argv: list[str] | None = None) -> int:
             print(f"ERROR: hit detection failed: {msg}", file=sys.stderr)
             return 1
 
-        kick_times_path = track_dir / "kick_times.csv"
-        hats_times_path = track_dir / "hats_times.csv"
+        kick_times_path = drum_dir / "kick_times.csv"
+        hats_times_path = drum_dir / "hats_times.csv"
         _write_times_csv(kick_times_path, kick_times)
         _write_times_csv(hats_times_path, hats_times)
         print(f"Wrote: {kick_times_path}")
@@ -735,14 +736,14 @@ def main(argv: list[str] | None = None) -> int:
             hats_one = _apply_fade(hats_one, sr, fade_ms=args.one_shot_fade_ms)
 
         if kick_one is not None:
-            kick_one_path = track_dir / "kick_one_shot.mp3"
+            kick_one_path = drum_dir / "kick_one_shot.mp3"
             _write_mp3(kick_one_path, kick_one, sr, bitrate=args.mp3_bitrate)
             print(f"Wrote: {kick_one_path}")
         else:
             print("WARN: no kick hits detected; skipping kick one-shot.")
 
         if hats_one is not None:
-            hats_one_path = track_dir / "hats_one_shot.mp3"
+            hats_one_path = drum_dir / "hats_one_shot.mp3"
             _write_mp3(hats_one_path, hats_one, sr, bitrate=args.mp3_bitrate)
             print(f"Wrote: {hats_one_path}")
         else:

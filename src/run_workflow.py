@@ -176,8 +176,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     track_dir = track_decomp_root / song_dir.name
-    track_dir.mkdir(parents=True, exist_ok=True)
-    midi_out = track_dir / "piano.mid"
+    drum_dir = track_dir / "drum"
+    piano_dir = track_dir / "piano"
+    drum_dir.mkdir(parents=True, exist_ok=True)
+    piano_dir.mkdir(parents=True, exist_ok=True)
+    midi_out = piano_dir / "piano.mid"
 
     drum_cmd = [
         sys.executable,
@@ -203,8 +206,8 @@ def main(argv: list[str] | None = None) -> int:
     if drum_rc != 0 or midi_rc != 0:
         return 1
 
-    kick_times = track_dir / "kick_times.csv"
-    hats_times = track_dir / "hats_times.csv"
+    kick_times = drum_dir / "kick_times.csv"
+    hats_times = drum_dir / "hats_times.csv"
     if not kick_times.exists() or not hats_times.exists():
         print("ERROR: Expected hit CSV files were not generated.", file=sys.stderr)
         print(f"Missing: {kick_times if not kick_times.exists() else hats_times}", file=sys.stderr)
@@ -231,7 +234,7 @@ def main(argv: list[str] | None = None) -> int:
 
     print("\nWorkflow complete.")
     print(f"- Song folder: {song_dir}")
-    print(f"- Drum decomposition: {track_dir}")
+    print(f"- Drum decomposition: {drum_dir}")
     print(f"- Piano MIDI: {midi_out}")
     print(f"- Hit plot: {plot_out}")
     return 0

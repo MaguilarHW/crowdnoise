@@ -18,9 +18,12 @@ from __future__ import annotations
 import argparse
 import inspect
 import os
+import re
 import shutil
 import sys
 from pathlib import Path
+
+DEMUX_STEM_NAMES = {"drums", "bass", "other", "vocals", "guitar", "piano"}
 
 
 def _require_python310_or_newer() -> None:
@@ -36,6 +39,19 @@ def _require_python310_or_newer() -> None:
 def _repo_root() -> Path:
     # src/basic_pitch_to_midi.py -> repo root
     return Path(__file__).resolve().parents[1]
+
+
+def _normalized_name(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", name.lower())
+
+
+def _default_midi_out(root: Path, audio_path: Path) -> Path:
+    instrument = "piano"
+    if _normalized_name(audio_path.stem) in DEMUX_STEM_NAMES and audio_path.parent.name:
+        song_name = audio_path.parent.name
+    else:
+        song_name = audio_path.stem
+    return root / "output" / "trackDecomp" / song_name / instrument / f"{instrument}.mid"
 
 
 def _call_predict_and_save(audio_path: Path, output_dir: Path) -> None:
@@ -121,14 +137,14 @@ def main(argv: list[str] | None = None) -> int:
         "--out",
         type=Path,
         default=None,
-        help="Path to output .mid file. Defaults to output/trackDecomp/<audio-stem>.mid",
+        help="Path to output .mid file. Defaults to output/trackDecomp/<song>/piano/piano.mid",
     )
     args = parser.parse_args(argv)
 
     try:
         out_path = args.out
         if out_path is None:
-            out_path = root / "output" / "trackDecomp" / f"{args.audio.stem}.mid"
+            out_path = _default_midi_out(root, args.audio)
         out = extract_midi(args.audio, out_path)
     except Exception as e:  # noqa: BLE001 - CLI script
         msg = str(e).strip() or e.__class__.__name__
