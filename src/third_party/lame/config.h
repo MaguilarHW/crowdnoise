@@ -198,6 +198,12 @@
 /* Define if SSE intrinsics work. */
 #define HAVE_XMMINTRIN_H 1
 
+/* This config.h appears to have been generated for an x86_64 environment.
+   On Apple Silicon / arm64, we must not enable SSE intrinsics. */
+#if defined(__aarch64__) || defined(__arm64__)
+#undef HAVE_XMMINTRIN_H
+#endif
+
 /* Define as const if the declaration of iconv() needs const. */
 #define ICONV_CONST 
 
