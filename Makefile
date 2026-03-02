@@ -76,7 +76,7 @@ APP_CPP_OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(APP_CPP_SRCS))
 # Top-level targets
 # -----------------------
 
-.PHONY: all clean run-mix-json
+.PHONY: all clean run-mix-json run-drums-mvp
 all: $(BIN_DIR)/mix_json_cli
 
 $(BIN_DIR)/mix_json_cli: $(VENDOR_C_OBJS) $(APP_CPP_OBJS)
@@ -98,4 +98,7 @@ clean:
 
 run-mix-json: $(BIN_DIR)/mix_json_cli
 	./$(BIN_DIR)/mix_json_cli "testing data/Song_State.json" out.mp3
+
+run-drums-mvp: $(BIN_DIR)/mix_json_cli
+	./$(BIN_DIR)/mix_json_cli "testing data/drums_mvp_mix.json" out_drums_mvp.mp3
 

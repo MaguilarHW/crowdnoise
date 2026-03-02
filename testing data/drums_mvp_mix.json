@@ -1,0 +1,22 @@
+{
+  "song_length_ms": 3000,
+  "sr": 48000,
+  "instruments": {
+    "drums": {
+      "active_path": "testing data/original_drums.mp3",
+      "original_path": "testing data/original_drums.mp3"
+    },
+    "bass": {
+      "active_path": "testing data/original_bass.mp3",
+      "original_path": "testing data/original_bass.mp3"
+    },
+    "other": {
+      "active_path": "testing data/original_other.mp3",
+      "original_path": "testing data/original_other.mp3"
+    }
+  },
+  "drum_mask": {
+    "one_shot_path": "testing data/original_drums.mp3",
+    "drum_events": [0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75]
+  }
+}
