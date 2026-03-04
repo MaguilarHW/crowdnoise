@@ -155,14 +155,28 @@ def _soft_gate_from_envelope(
     thresh_db: float,
     smooth_ms: float,
     sr: int,
+    knee_db: float = 6.0,
 ) -> np.ndarray:
     """
-    Create a smooth gate mask from an envelope, then apply it.
+    Create a smooth gate mask from an envelope using a soft knee.
+    Gain transitions smoothly below threshold instead of hard cut.
     """
     env_db = 20.0 * np.log10(np.maximum(env, 1e-8))
-    mask = (env_db >= thresh_db).astype(np.float32)
+    # Soft knee: gain = 1 above thresh, smooth ramp in [thresh-knee, thresh]
+    if knee_db <= 0:
+        mask = (env_db >= thresh_db).astype(np.float32)
+    else:
+        ramp_start = thresh_db - knee_db
+        mask = np.zeros_like(env_db, dtype=np.float32)
+        above = env_db >= thresh_db
+        below = env_db <= ramp_start
+        in_ramp = ~above & ~below
+        mask[above] = 1.0
+        mask[below] = 0.0
+        # Smooth S-curve in dB space
+        t = (env_db[in_ramp] - ramp_start) / knee_db
+        mask[in_ramp] = t * t * (3.0 - 2.0 * t)  # smoothstep
 
-    # Smooth mask to reduce clicks.
     if smooth_ms > 0:
         win = int(max(1, round((smooth_ms / 1000.0) * sr)))
         kernel = np.ones(win, dtype=np.float32) / float(win)
@@ -213,9 +227,12 @@ def _apply_gate(
     attack_ms: float,
     release_ms: float,
     smooth_ms: float,
+    knee_db: float = 6.0,
 ) -> np.ndarray:
     env = _envelope_follower(x, sr, attack_ms=attack_ms, release_ms=release_ms)
-    return _soft_gate_from_envelope(x, env, thresh_db=thresh_db, smooth_ms=smooth_ms, sr=sr)
+    return _soft_gate_from_envelope(
+        x, env, thresh_db=thresh_db, smooth_ms=smooth_ms, sr=sr, knee_db=knee_db
+    )
 
 
 def _detect_hit_times(
@@ -474,7 +491,7 @@ def isolate_drums(
     return kick, hats, sr
 
 
-def _write_wav(path: Path, y: np.ndarray, sr: int) -> None:
+def _write_wav(path: Path, y: np.ndarray, sr: int, subtype: str = "FLOAT") -> None:
     try:
         import soundfile as sf  # type: ignore
     except Exception as e:  # noqa: BLE001 - CLI tool
@@ -485,7 +502,7 @@ def _write_wav(path: Path, y: np.ndarray, sr: int) -> None:
         ) from e
 
     path.parent.mkdir(parents=True, exist_ok=True)
-    sf.write(str(path), _normalize_if_needed(y), sr, subtype="FLOAT")
+    sf.write(str(path), _normalize_if_needed(y), sr, subtype=subtype)
 
 
 def _write_mp3(path: Path, y: np.ndarray, sr: int, *, bitrate: str = "192k") -> None:
@@ -553,27 +570,38 @@ def main(argv: list[str] | None = None) -> int:
         default=root / "output" / "trackDecomp",
         help="Directory to write output MP3 stems.",
     )
+    parser.add_argument(
+        "--mvp-demo",
+        action="store_true",
+        help="Also copy drum outputs (kick, hats, times, one-shots) to MVP demo/drum/.",
+    )
 
-    # Filter parameters
-    parser.add_argument("--kick-low-hz", type=float, default=40.0)
-    parser.add_argument("--kick-high-hz", type=float, default=160.0)
-    parser.add_argument("--hats-highpass-hz", type=float, default=7000.0)
-    parser.add_argument("--order", type=int, default=6, help="Butterworth filter order (e.g. 4–8).")
+    # Filter parameters (wider bands + lower order = more natural sound, less ringing)
+    parser.add_argument("--kick-low-hz", type=float, default=35.0)
+    parser.add_argument("--kick-high-hz", type=float, default=220.0, help="Wider to capture kick body/harmonics.")
+    parser.add_argument("--hats-highpass-hz", type=float, default=5500.0, help="Lower = more body, less thin.")
+    parser.add_argument("--order", type=int, default=4, help="Lower order = gentler rolloff, less phase distortion.")
 
     # Gate parameters
     parser.add_argument("--no-gate", action="store_true", help="Disable transient gating.")
-    parser.add_argument("--kick-gate-db", type=float, default=-35.0)
-    parser.add_argument("--hats-gate-db", type=float, default=-40.0)
+    parser.add_argument("--kick-gate-db", type=float, default=-40.0, help="Softer default to reduce artifacts.")
+    parser.add_argument("--hats-gate-db", type=float, default=-45.0, help="Softer default to reduce artifacts.")
     parser.add_argument("--gate-attack-ms", type=float, default=5.0)
     parser.add_argument("--gate-release-ms", type=float, default=80.0)
-    parser.add_argument("--gate-smooth-ms", type=float, default=10.0)
+    parser.add_argument("--gate-smooth-ms", type=float, default=15.0, help="Longer smooth = less pumping.")
+    parser.add_argument("--gate-knee-db", type=float, default=8.0, help="Soft-knee width; 0 = hard gate.")
 
-    # MP3 output
+    # Output quality
     parser.add_argument(
         "--mp3-bitrate",
         type=str,
-        default="192k",
-        help="MP3 bitrate to pass to ffmpeg (e.g. 128k, 192k, 320k).",
+        default="256k",
+        help="MP3 bitrate (256k or 320k for higher fidelity).",
+    )
+    parser.add_argument(
+        "--wav",
+        action="store_true",
+        help="Output WAV instead of MP3 (lossless, better fidelity).",
     )
 
     # Hit detection / one-shot export
@@ -645,6 +673,7 @@ def main(argv: list[str] | None = None) -> int:
                 attack_ms=args.gate_attack_ms,
                 release_ms=args.gate_release_ms,
                 smooth_ms=args.gate_smooth_ms,
+                knee_db=args.gate_knee_db,
             )
             hats_out = _apply_gate(
                 hats_filt,
@@ -653,6 +682,7 @@ def main(argv: list[str] | None = None) -> int:
                 attack_ms=args.gate_attack_ms,
                 release_ms=args.gate_release_ms,
                 smooth_ms=args.gate_smooth_ms,
+                knee_db=args.gate_knee_db,
             )
     except Exception as e:  # noqa: BLE001 - CLI script
         msg = str(e).strip() or e.__class__.__name__
@@ -662,12 +692,17 @@ def main(argv: list[str] | None = None) -> int:
     out_root: Path = args.out_dir.resolve()
     track_dir = out_root / _track_output_name(audio_path)
     drum_dir = track_dir / "drum"
-    kick_path = drum_dir / "kick.mp3"
-    hats_path = drum_dir / "hats.mp3"
+    ext = "wav" if args.wav else "mp3"
+    kick_path = drum_dir / f"kick.{ext}"
+    hats_path = drum_dir / f"hats.{ext}"
 
     try:
-        _write_mp3(kick_path, kick_out, sr, bitrate=args.mp3_bitrate)
-        _write_mp3(hats_path, hats_out, sr, bitrate=args.mp3_bitrate)
+        if args.wav:
+            _write_wav(kick_path, kick_out, sr)
+            _write_wav(hats_path, hats_out, sr)
+        else:
+            _write_mp3(kick_path, kick_out, sr, bitrate=args.mp3_bitrate)
+            _write_mp3(hats_path, hats_out, sr, bitrate=args.mp3_bitrate)
     except Exception as e:  # noqa: BLE001 - CLI script
         msg = str(e).strip() or e.__class__.__name__
         print(f"ERROR: {msg}", file=sys.stderr)
@@ -736,18 +771,32 @@ def main(argv: list[str] | None = None) -> int:
             hats_one = _apply_fade(hats_one, sr, fade_ms=args.one_shot_fade_ms)
 
         if kick_one is not None:
-            kick_one_path = drum_dir / "kick_one_shot.mp3"
-            _write_mp3(kick_one_path, kick_one, sr, bitrate=args.mp3_bitrate)
+            kick_one_path = drum_dir / f"kick_one_shot.{ext}"
+            if args.wav:
+                _write_wav(kick_one_path, kick_one, sr)
+            else:
+                _write_mp3(kick_one_path, kick_one, sr, bitrate=args.mp3_bitrate)
             print(f"Wrote: {kick_one_path}")
         else:
             print("WARN: no kick hits detected; skipping kick one-shot.")
 
         if hats_one is not None:
-            hats_one_path = drum_dir / "hats_one_shot.mp3"
-            _write_mp3(hats_one_path, hats_one, sr, bitrate=args.mp3_bitrate)
+            hats_one_path = drum_dir / f"hats_one_shot.{ext}"
+            if args.wav:
+                _write_wav(hats_one_path, hats_one, sr)
+            else:
+                _write_mp3(hats_one_path, hats_one, sr, bitrate=args.mp3_bitrate)
             print(f"Wrote: {hats_one_path}")
         else:
             print("WARN: no hats hits detected; skipping hats one-shot.")
+
+    if args.mvp_demo:
+        mvp_drum = root / "MVP demo" / "drum"
+        mvp_drum.mkdir(parents=True, exist_ok=True)
+        for f in drum_dir.iterdir():
+            if f.is_file():
+                shutil.copy2(f, mvp_drum / f.name)
+                print(f"Copied to {mvp_drum / f.name}")
 
     return 0
 
