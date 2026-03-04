@@ -49,8 +49,8 @@ Build the repeat tool, then put your samples at the hit times. Volume is auto-ma
 make
 DURATION=$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "MVP demo/combined_portable.mp3")
 
-# Match gain to reference, then place kick
-KICK_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/kick.mp3" --sample "MVP demo/my_kick.mp3" --times "MVP demo/drum/kick_times.csv")
+# Match gain to reference one-shot, then place kick
+KICK_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/kick_one_shot.mp3" --sample "MVP demo/my_kick.mp3" --times "MVP demo/drum/kick_times.csv")
 ./bin/repeat_sample_at_times_cli \
   --times "MVP demo/drum/kick_times.csv" \
   --sample "MVP demo/my_kick.mp3" \
@@ -58,8 +58,8 @@ KICK_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/kick.mp3
   --length-seconds "$DURATION" \
   --gain "$KICK_GAIN"
 
-# Match gain to reference, then place hats
-HATS_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/hats.mp3" --sample "MVP demo/my_hats.mp3" --times "MVP demo/drum/hats_times.csv")
+# Match gain to reference one-shot, then place hats
+HATS_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/hats_one_shot.mp3" --sample "MVP demo/my_hats.mp3" --times "MVP demo/drum/hats_times.csv")
 ./bin/repeat_sample_at_times_cli \
   --times "MVP demo/drum/hats_times.csv" \
   --sample "MVP demo/my_hats.mp3" \

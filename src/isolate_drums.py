@@ -245,7 +245,7 @@ def _detect_hit_times(
     delta: float,
 ) -> np.ndarray:
     """
-    Return an array of hit timestamps (seconds) for a percussive stem.
+    Return an array of hit timestamps (seconds) by analyzing when the stem has onsets.
     """
     try:
         import librosa  # imported lazily for friendlier CLI errors
@@ -712,11 +712,10 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Wrote: {hats_path}")
 
     if args.export_hits:
-        # Detect on filtered-but-UNGATED stems (more stable onset measure),
-        # then slice from gated outputs if gating is enabled.
+        # Detect hit times from kick.mp3 and hats.mp3 stems (when each has onsets).
         try:
             kick_times = _detect_hit_times(
-                kick_filt,
+                kick_out,
                 sr,
                 hop_length=args.hop_length,
                 fmin=args.kick_hit_fmin,
@@ -724,7 +723,7 @@ def main(argv: list[str] | None = None) -> int:
                 delta=args.kick_delta,
             )
             hats_times = _detect_hit_times(
-                hats_filt,
+                hats_out,
                 sr,
                 hop_length=args.hop_length,
                 fmin=args.hats_hit_fmin,
@@ -743,8 +742,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Wrote: {kick_times_path}")
         print(f"Wrote: {hats_times_path}")
 
-        # Slice one-shot candidates using non-overlapping windows so we don't
-        # accidentally include neighboring hits in fast patterns.
+        # Slice one-shot candidates using non-overlapping windows.
         kick_slices = _slice_hits_nonoverlapping(
             kick_out,
             sr,
