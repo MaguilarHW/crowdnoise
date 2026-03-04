@@ -151,7 +151,7 @@ _record_or_beep() {
       [[ $empty -lt 0 ]] && empty=0
       local bar_filled="" bar_empty=""
       [[ $filled -gt 0 ]] && bar_filled=$(printf "#%.0s" $(seq 1 $filled))
-      [[ $empty -gt 0 ]] && bar_empty=$(printf "-%.0s" $(seq 1 $empty))
+      [[ $empty -gt 0 ]] && bar_empty=$(printf '\055%.0s' $(seq 1 $empty))
       printf "\r[%s%s] %d%% (%gs/%gs) " "$bar_filled" "$bar_empty" "$pct" "$elapsed" "$RECORD_DURATION"
     done
     printf "\r"
