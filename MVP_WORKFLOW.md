@@ -1,6 +1,7 @@
 # CrowdNoise MVP Workflow
 
 **Source:** [YouTube video](https://www.youtube.com/watch?v=dXDsd4Yn_qs)
+FOLLOW ALL THESE COMMANDS FOR THE MVP!!! THIS IS SPLITTING KANYE WEST'S I WONDER
 
 ---
 
