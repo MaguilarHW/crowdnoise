@@ -43,25 +43,29 @@ Save as `my_kick.mp3` and `my_hats.mp3` in `MVP demo/`.
 
 ## 5. Place samples over the decomp tracks
 
-Build the repeat tool, then put your samples at the hit times:
+Build the repeat tool, then put your samples at the hit times. Volume is auto-matched to the original kick/hats:
 
 ```bash
 make
 DURATION=$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "MVP demo/combined_portable.mp3")
 
-# Kick at kick hit times
+# Match gain to reference, then place kick
+KICK_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/kick.wav" --sample "MVP demo/my_kick.mp3" --times "MVP demo/drum/kick_times.csv")
 ./bin/repeat_sample_at_times_cli \
   --times "MVP demo/drum/kick_times.csv" \
   --sample "MVP demo/my_kick.mp3" \
   --out "MVP demo/kick_track.mp3" \
-  --length-seconds "$DURATION"
+  --length-seconds "$DURATION" \
+  --gain "$KICK_GAIN"
 
-# Hats at hats hit times
+# Match gain to reference, then place hats
+HATS_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/hats.wav" --sample "MVP demo/my_hats.mp3" --times "MVP demo/drum/hats_times.csv")
 ./bin/repeat_sample_at_times_cli \
   --times "MVP demo/drum/hats_times.csv" \
   --sample "MVP demo/my_hats.mp3" \
   --out "MVP demo/hats_track.mp3" \
-  --length-seconds "$DURATION"
+  --length-seconds "$DURATION" \
+  --gain "$HATS_GAIN"
 
 # Mix kick + hats → remade_drums.mp3
 ffmpeg -y -hide_banner -loglevel error \
@@ -70,6 +74,8 @@ ffmpeg -y -hide_banner -loglevel error \
   -filter_complex "amix=inputs=2:duration=longest" \
   -c:a libmp3lame -q:a 2 "MVP demo/remade_drums.mp3"
 ```
+
+*If you used MP3 (not WAV) for drum output, use `kick.mp3` and `hats.mp3` instead of `kick.wav` and `hats.wav` in `--reference`.*
 
 ---
 
