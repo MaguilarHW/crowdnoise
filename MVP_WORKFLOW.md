@@ -71,7 +71,7 @@ HATS_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/hats_one
 ffmpeg -y -hide_banner -loglevel error \
   -i "MVP demo/kick_track.mp3" \
   -i "MVP demo/hats_track.mp3" \
-  -filter_complex "amix=inputs=2:duration=longest" \
+  -filter_complex "amix=inputs=2:duration=longest,volume=3.5" \
   -c:a libmp3lame -q:a 2 "MVP demo/remade_drums.mp3"
 ```
 

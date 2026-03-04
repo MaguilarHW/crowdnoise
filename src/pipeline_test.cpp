@@ -137,7 +137,7 @@ static void renderMixFromSongState(const fs::path& songStatePath, const fs::path
     cmd += "-i " + shellQuote(p) + " ";
   }
   cmd += "-filter_complex " + shellQuote("amix=inputs=" + std::to_string(inputs.size()) +
-                                        ":duration=longest:dropout_transition=0") +
+                                        ":duration=longest:dropout_transition=0,volume=2.5") +
          " ";
   cmd += "-t " + std::to_string(durationSec) + " ";
   cmd += "-ar " + std::to_string(sr) + " -ac 1 ";
