@@ -185,11 +185,16 @@ def _soft_gate_from_envelope(
     return (x * mask).astype(np.float32, copy=False)
 
 
-def _normalize_if_needed(y: np.ndarray) -> np.ndarray:
+def _normalize_to_peak(y: np.ndarray, target_peak: float = 0.95, max_gain: float = 50.0) -> np.ndarray:
+    """
+    Scale so peak reaches target_peak. Boosts quiet decomposed stems; limits gain to avoid noise.
+    """
     peak = float(np.max(np.abs(y))) if y.size else 0.0
-    if peak <= 1.0 or peak == 0.0:
+    if peak < 1e-10:
         return y
-    return (y / peak).astype(np.float32, copy=False)
+    gain = target_peak / peak
+    gain = min(gain, max_gain)  # cap boost to avoid amplifying near-silence
+    return (y * gain).astype(np.float32, copy=False)
 
 
 def _isolate_filtered(
@@ -502,7 +507,7 @@ def _write_wav(path: Path, y: np.ndarray, sr: int, subtype: str = "FLOAT") -> No
         ) from e
 
     path.parent.mkdir(parents=True, exist_ok=True)
-    sf.write(str(path), _normalize_if_needed(y), sr, subtype=subtype)
+    sf.write(str(path), _normalize_to_peak(y), sr, subtype=subtype)
 
 
 def _write_mp3(path: Path, y: np.ndarray, sr: int, *, bitrate: str = "192k") -> None:
