@@ -1,6 +1,6 @@
 # CrowdNoise MVP Workflow
 
-**Source:** [YouTube video](https://www.youtube.com/watch?v=rcQlcDUBryI)
+**Source:** [YouTube video](https://www.youtube.com/watch?v=dXDsd4Yn_qs)
 
 ---
 
@@ -8,13 +8,13 @@
 
 ```bash
 # 1. Download audio → resources/ and MVP demo/
-python3 src/scrape_audio.py "https://www.youtube.com/watch?v=rcQlcDUBryI" -o combined_portable.mp3 --mvp-demo
+python3 src/scrape_audio.py "https://www.youtube.com/watch?v=dXDsd4Yn_qs" -o combined_portable.mp3 --mvp-demo
 
 # 2. Split stems → MVP demo/original_*.mp3
 python3 src/split_stems.py --mvp-demo combined_portable
 
 # 3. Isolate kick + hats from drums → MVP demo/drum/
-python3 src/isolate_drums.py output/htdemucs_6s/combined_portable/drums.mp3 --export-hits --out-dir output/trackDecomp --mvp-demo --wav
+python3 src/isolate_drums.py output/htdemucs_6s/combined_portable/drums.mp3 --export-hits --out-dir output/trackDecomp --mvp-demo
 ```
 
 1. **Download** — Fetches audio from YouTube into `resources/` and `MVP demo/`.
