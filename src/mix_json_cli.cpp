@@ -502,6 +502,20 @@ struct Instrument {
   std::vector<Segment> segments;
 };
 
+// Drum mask config (drums MVP): overlay user one-shot at each detected hit time.
+struct DrumMaskConfig {
+  std::string oneShotPath;
+  std::vector<double> drumEventsSeconds;  // legacy: merged kick+hats
+  std::string kickOneShotPath;
+  std::vector<double> kickEventsSeconds;
+  std::string hatsOneShotPath;
+  std::vector<double> hatsEventsSeconds;
+  bool usePerTrack() const {
+    return !kickOneShotPath.empty() && !kickEventsSeconds.empty() &&
+           !hatsOneShotPath.empty() && !hatsEventsSeconds.empty();
+  }
+};
+
 static bool JsonGetNumber(const Json& j, const char* key, double* out) {
   if (!out) return false;
   if (j.type != Json::Type::Object) return false;
@@ -644,6 +658,130 @@ static bool LoadSongFromJson(const Json& root, uint64_t* outSongFrames, std::vec
   }
 
   return true;
+}
+
+// Load optional drum_mask from root. When present, drums instrument overlays one-shot at each hit.
+// Per-track: kick_one_shot_path + kick_events, hats_one_shot_path + hats_events.
+// Legacy fallback: one_shot_path + drum_events.
+static bool LoadDrumMaskFromJson(const Json& root,
+                                 const std::string& /*jsonDir*/,
+                                 DrumMaskConfig* out,
+                                 std::string* err) {
+  if (!out) return false;
+  out->oneShotPath.clear();
+  out->drumEventsSeconds.clear();
+  out->kickOneShotPath.clear();
+  out->kickEventsSeconds.clear();
+  out->hatsOneShotPath.clear();
+  out->hatsEventsSeconds.clear();
+
+  const Json* dm = JsonGetObjectMember(root, "drum_mask");
+  if (!dm || dm->type != Json::Type::Object) return true;  // no drum_mask is OK
+
+  // Per-track: kick_events, kick_one_shot_path, hats_events, hats_one_shot_path
+  if (JsonGetString(*dm, "kick_one_shot_path", &out->kickOneShotPath) && !out->kickOneShotPath.empty() &&
+      JsonGetString(*dm, "hats_one_shot_path", &out->hatsOneShotPath) && !out->hatsOneShotPath.empty()) {
+    const Json* ke = JsonGetObjectMember(*dm, "kick_events");
+    const Json* he = JsonGetObjectMember(*dm, "hats_events");
+    if (ke && ke->type == Json::Type::Array) {
+      for (size_t i = 0; i < ke->a.size(); ++i) {
+        if (ke->a[i].type == Json::Type::Number && std::isfinite(ke->a[i].n)) {
+          out->kickEventsSeconds.push_back(ke->a[i].n);
+        }
+      }
+    }
+    if (he && he->type == Json::Type::Array) {
+      for (size_t i = 0; i < he->a.size(); ++i) {
+        if (he->a[i].type == Json::Type::Number && std::isfinite(he->a[i].n)) {
+          out->hatsEventsSeconds.push_back(he->a[i].n);
+        }
+      }
+    }
+    if (!out->kickEventsSeconds.empty() || !out->hatsEventsSeconds.empty()) {
+      return true;
+    }
+  }
+
+  // Legacy fallback: one_shot_path + drum_events
+  if (!JsonGetString(*dm, "one_shot_path", &out->oneShotPath) || out->oneShotPath.empty()) {
+    if (err) *err = "drum_mask requires one_shot_path (or kick_one_shot_path + hats_one_shot_path)";
+    return false;
+  }
+  const Json* events = JsonGetObjectMember(*dm, "drum_events");
+  if (events && events->type == Json::Type::Array) {
+    for (size_t i = 0; i < events->a.size(); ++i) {
+      if (events->a[i].type == Json::Type::Number && std::isfinite(events->a[i].n)) {
+        out->drumEventsSeconds.push_back(events->a[i].n);
+      }
+    }
+    std::sort(out->drumEventsSeconds.begin(), out->drumEventsSeconds.end());
+  }
+  if (out->drumEventsSeconds.empty()) {
+    if (err) *err = "drum_mask requires drum_events array with at least one time_seconds";
+    return false;
+  }
+  return true;
+}
+
+// Render drums stem: original drums + one-shot overlaid at each hit (sample-accurate 48kHz).
+static void RenderDrumsWithOneShotOverlay(
+    const crowdnoise_pcm_f32_t& originalDrums,
+    const crowdnoise_pcm_f32_t& oneShot,
+    uint64_t songFrames,
+    const std::vector<double>& hitTimesSeconds,
+    std::vector<float>* outInterleaved) {
+  outInterleaved->resize(static_cast<size_t>(songFrames * 2u), 0.0f);
+  if (!originalDrums.pcmInterleaved || originalDrums.frameCount == 0) return;
+  if (!oneShot.pcmInterleaved || oneShot.frameCount == 0) return;
+  if (originalDrums.sampleRate != 48000 || originalDrums.channels != 2) return;
+  if (oneShot.sampleRate != 48000 || oneShot.channels != 2) return;
+
+  const uint64_t drumsFrames = std::min(songFrames, originalDrums.frameCount);
+  for (uint64_t f = 0; f < drumsFrames; ++f) {
+    const size_t idx = static_cast<size_t>(f * 2u);
+    const size_t srcIdx = static_cast<size_t>(f * 2u);
+    (*outInterleaved)[idx + 0] = originalDrums.pcmInterleaved[srcIdx + 0];
+    (*outInterleaved)[idx + 1] = originalDrums.pcmInterleaved[srcIdx + 1];
+  }
+
+  const uint64_t oneShotFrames = oneShot.frameCount;
+  for (double t : hitTimesSeconds) {
+    if (!(t >= 0.0) || !std::isfinite(t)) continue;
+    const uint64_t startFrame = static_cast<uint64_t>(std::llround(t * 48000.0));
+    if (startFrame >= songFrames) continue;
+
+    for (uint64_t o = 0; o < oneShotFrames && (startFrame + o) < songFrames; ++o) {
+      const size_t dstIdx = static_cast<size_t>((startFrame + o) * 2u);
+      const size_t srcIdx = static_cast<size_t>(o * 2u);
+      (*outInterleaved)[dstIdx + 0] += oneShot.pcmInterleaved[srcIdx + 0];
+      (*outInterleaved)[dstIdx + 1] += oneShot.pcmInterleaved[srcIdx + 1];
+    }
+  }
+}
+
+// Add one-shot overlay at each event to existing buffer (used for per-track).
+static void OverlayOneShotAtEvents(
+    const crowdnoise_pcm_f32_t& oneShot,
+    uint64_t songFrames,
+    const std::vector<double>& hitTimesSeconds,
+    std::vector<float>* outInterleaved) {
+  if (!oneShot.pcmInterleaved || oneShot.frameCount == 0) return;
+  if (!outInterleaved || outInterleaved->size() < static_cast<size_t>(songFrames * 2u)) return;
+  if (oneShot.sampleRate != 48000 || oneShot.channels != 2) return;
+
+  const uint64_t oneShotFrames = oneShot.frameCount;
+  for (double t : hitTimesSeconds) {
+    if (!(t >= 0.0) || !std::isfinite(t)) continue;
+    const uint64_t startFrame = static_cast<uint64_t>(std::llround(t * 48000.0));
+    if (startFrame >= songFrames) continue;
+
+    for (uint64_t o = 0; o < oneShotFrames && (startFrame + o) < songFrames; ++o) {
+      const size_t dstIdx = static_cast<size_t>((startFrame + o) * 2u);
+      const size_t srcIdx = static_cast<size_t>(o * 2u);
+      (*outInterleaved)[dstIdx + 0] += oneShot.pcmInterleaved[srcIdx + 0];
+      (*outInterleaved)[dstIdx + 1] += oneShot.pcmInterleaved[srcIdx + 1];
+    }
+  }
 }
 
 static void PrintUsage(const char* exe) {
@@ -825,11 +963,50 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  // 2) Decode+standardize tracks.
+  DrumMaskConfig drumMask;
   const std::string jsonDir = Dirname(jsonPath);
+  if (!LoadDrumMaskFromJson(root, jsonDir, &drumMask, &schemaErr)) {
+    std::cerr << "drum_mask error: " << schemaErr << "\n";
+    return 1;
+  }
+  const bool usePerTrack = drumMask.usePerTrack();
+  const bool useLegacyDrumMask = !drumMask.oneShotPath.empty() && !drumMask.drumEventsSeconds.empty();
+  const bool useDrumMask = usePerTrack || useLegacyDrumMask;
+
+  // Resolve one-shot path(s) when drum mask is used.
+  std::string drumMaskOneShotResolved;
+  std::string drumMaskKickResolved;
+  std::string drumMaskHatsResolved;
+  size_t drumsInstrumentIdx = static_cast<size_t>(-1);
+  if (useDrumMask) {
+    if (useLegacyDrumMask) {
+      drumMaskOneShotResolved = ResolvePathRelativeToJson(jsonDir, drumMask.oneShotPath);
+    } else {
+      drumMaskKickResolved = ResolvePathRelativeToJson(jsonDir, drumMask.kickOneShotPath);
+      drumMaskHatsResolved = ResolvePathRelativeToJson(jsonDir, drumMask.hatsOneShotPath);
+    }
+    for (size_t i = 0; i < instruments.size(); ++i) {
+      if (instruments[i].name == "drums") {
+        drumsInstrumentIdx = i;
+        break;
+      }
+    }
+    if (drumsInstrumentIdx == static_cast<size_t>(-1)) {
+      std::cerr << "drum_mask present but no 'drums' instrument in JSON\n";
+      return 1;
+    }
+  }
+
+  // 2) Decode+standardize tracks.
   std::vector<crowdnoise_pcm_f32_t> replacementTracks(instruments.size());
   std::vector<crowdnoise_pcm_f32_t> originalTracks(instruments.size());
   std::vector<bool> hasOriginal(instruments.size(), false);
+  crowdnoise_pcm_f32_t oneShotPcm{};
+  crowdnoise_pcm_f32_t kickOneShotPcm{};
+  crowdnoise_pcm_f32_t hatsOneShotPcm{};
+  std::memset(&oneShotPcm, 0, sizeof(oneShotPcm));
+  std::memset(&kickOneShotPcm, 0, sizeof(kickOneShotPcm));
+  std::memset(&hatsOneShotPcm, 0, sizeof(hatsOneShotPcm));
   char err[512];
 
   for (size_t i = 0; i < instruments.size(); ++i) {
@@ -837,8 +1014,16 @@ int main(int argc, char** argv) {
     std::memset(&replacementTracks[i], 0, sizeof(crowdnoise_pcm_f32_t));
     std::memset(&originalTracks[i], 0, sizeof(crowdnoise_pcm_f32_t));
 
-    const std::string replacementPath = ResolvePathRelativeToJson(
-        jsonDir, instruments[i].replacementPath.empty() ? instruments[i].activePath : instruments[i].replacementPath);
+    std::string replacementPath;
+    if (useDrumMask && i == drumsInstrumentIdx) {
+      // For drums with drum_mask: use original stem (we overlay one-shot in mix phase).
+      replacementPath = ResolvePathRelativeToJson(
+          jsonDir,
+          instruments[i].originalPath.empty() ? instruments[i].activePath : instruments[i].originalPath);
+    } else {
+      replacementPath = ResolvePathRelativeToJson(
+          jsonDir, instruments[i].replacementPath.empty() ? instruments[i].activePath : instruments[i].replacementPath);
+    }
 
     const crowdnoise_result_t rc = crowdnoise_decode_standardize_mp3_file(
         replacementPath.c_str(), &replacementTracks[i], err, sizeof(err));
@@ -870,6 +1055,46 @@ int main(int argc, char** argv) {
     }
   }
 
+  if (useDrumMask) {
+    if (useLegacyDrumMask) {
+      std::memset(err, 0, sizeof(err));
+      const crowdnoise_result_t rc = crowdnoise_decode_standardize_mp3_file(
+          drumMaskOneShotResolved.c_str(), &oneShotPcm, err, sizeof(err));
+      if (rc != CROWDNOISE_OK) {
+        std::cerr << "Decode failed for drum one-shot (" << drumMaskOneShotResolved << "): " << err << "\n";
+        for (size_t j = 0; j < instruments.size(); ++j) {
+          crowdnoise_free_pcm_f32(&replacementTracks[j]);
+          if (hasOriginal[j]) crowdnoise_free_pcm_f32(&originalTracks[j]);
+        }
+        return 1;
+      }
+    } else {
+      std::memset(err, 0, sizeof(err));
+      const crowdnoise_result_t rck = crowdnoise_decode_standardize_mp3_file(
+          drumMaskKickResolved.c_str(), &kickOneShotPcm, err, sizeof(err));
+      if (rck != CROWDNOISE_OK) {
+        std::cerr << "Decode failed for kick one-shot (" << drumMaskKickResolved << "): " << err << "\n";
+        for (size_t j = 0; j < instruments.size(); ++j) {
+          crowdnoise_free_pcm_f32(&replacementTracks[j]);
+          if (hasOriginal[j]) crowdnoise_free_pcm_f32(&originalTracks[j]);
+        }
+        return 1;
+      }
+      std::memset(err, 0, sizeof(err));
+      const crowdnoise_result_t rch = crowdnoise_decode_standardize_mp3_file(
+          drumMaskHatsResolved.c_str(), &hatsOneShotPcm, err, sizeof(err));
+      if (rch != CROWDNOISE_OK) {
+        std::cerr << "Decode failed for hats one-shot (" << drumMaskHatsResolved << "): " << err << "\n";
+        crowdnoise_free_pcm_f32(&kickOneShotPcm);
+        for (size_t j = 0; j < instruments.size(); ++j) {
+          crowdnoise_free_pcm_f32(&replacementTracks[j]);
+          if (hasOriginal[j]) crowdnoise_free_pcm_f32(&originalTracks[j]);
+        }
+        return 1;
+      }
+    }
+  }
+
   // 3) Allocate the final mix timeline.
   // Always allocate exactly song_length_ms.
   crowdnoise_track_placement_t placement{0u, songFrames};
@@ -880,11 +1105,14 @@ int main(int argc, char** argv) {
     const crowdnoise_result_t rc = crowdnoise_step4_allocate_silent_mix_buffer(
         &placement, 1, &mix, err, sizeof(err));
     if (rc != CROWDNOISE_OK) {
-      std::cerr << "Step 4 allocate failed: " << err << "\n";
+        std::cerr << "Step 4 allocate failed: " << err << "\n";
       for (size_t i = 0; i < instruments.size(); ++i) {
         crowdnoise_free_pcm_f32(&replacementTracks[i]);
         if (hasOriginal[i]) crowdnoise_free_pcm_f32(&originalTracks[i]);
       }
+      crowdnoise_free_pcm_f32(&oneShotPcm);
+        crowdnoise_free_pcm_f32(&kickOneShotPcm);
+        crowdnoise_free_pcm_f32(&hatsOneShotPcm);
       return 1;
     }
   }
@@ -900,6 +1128,53 @@ int main(int argc, char** argv) {
   for (size_t i = 0; i < instruments.size(); ++i) {
     const auto& inst = instruments[i];
     const auto& replacement = replacementTracks[i];
+
+    if (useDrumMask && i == drumsInstrumentIdx) {
+      renderedStems.emplace_back();
+      if (usePerTrack) {
+        // Per-track: original drums + kick one-shot at kick_events + hats one-shot at hats_events.
+        RenderDrumsWithOneShotOverlay(
+            replacement,
+            kickOneShotPcm,
+            songFrames,
+            drumMask.kickEventsSeconds,
+            &renderedStems.back());
+        OverlayOneShotAtEvents(
+            hatsOneShotPcm,
+            songFrames,
+            drumMask.hatsEventsSeconds,
+            &renderedStems.back());
+      } else {
+        RenderDrumsWithOneShotOverlay(
+            replacement,
+            oneShotPcm,
+            songFrames,
+            drumMask.drumEventsSeconds,
+            &renderedStems.back());
+      }
+
+      crowdnoise_pcm_f32_t stemView{};
+      stemView.sampleRate = 48000;
+      stemView.channels = 2;
+      stemView.frameCount = songFrames;
+      stemView.pcmInterleaved = renderedStems.back().data();
+
+      std::memset(err, 0, sizeof(err));
+      const crowdnoise_result_t rc = crowdnoise_step5_add_track_to_mix(&stemView, 0u, &mix, err, sizeof(err));
+      if (rc != CROWDNOISE_OK) {
+        std::cerr << "Step 5 add failed for drums (drum mask): " << err << "\n";
+        for (size_t j = 0; j < instruments.size(); ++j) {
+          crowdnoise_free_pcm_f32(&replacementTracks[j]);
+          if (hasOriginal[j]) crowdnoise_free_pcm_f32(&originalTracks[j]);
+        }
+        crowdnoise_free_pcm_f32(&oneShotPcm);
+        crowdnoise_free_pcm_f32(&kickOneShotPcm);
+        crowdnoise_free_pcm_f32(&hatsOneShotPcm);
+        crowdnoise_free_pcm_f32(&mix);
+        return 1;
+      }
+      continue;
+    }
 
     if (!inst.segments.empty()) {
       // Legacy explicit segments mode (timeline windows).
@@ -933,6 +1208,9 @@ int main(int argc, char** argv) {
             crowdnoise_free_pcm_f32(&replacementTracks[j]);
             if (hasOriginal[j]) crowdnoise_free_pcm_f32(&originalTracks[j]);
           }
+          crowdnoise_free_pcm_f32(&oneShotPcm);
+        crowdnoise_free_pcm_f32(&kickOneShotPcm);
+        crowdnoise_free_pcm_f32(&hatsOneShotPcm);
           crowdnoise_free_pcm_f32(&mix);
           return 1;
         }
@@ -959,6 +1237,9 @@ int main(int argc, char** argv) {
           crowdnoise_free_pcm_f32(&replacementTracks[j]);
           if (hasOriginal[j]) crowdnoise_free_pcm_f32(&originalTracks[j]);
         }
+        crowdnoise_free_pcm_f32(&oneShotPcm);
+        crowdnoise_free_pcm_f32(&kickOneShotPcm);
+        crowdnoise_free_pcm_f32(&hatsOneShotPcm);
         crowdnoise_free_pcm_f32(&mix);
         return 1;
       }
@@ -981,6 +1262,9 @@ int main(int argc, char** argv) {
         crowdnoise_free_pcm_f32(&replacementTracks[j]);
         if (hasOriginal[j]) crowdnoise_free_pcm_f32(&originalTracks[j]);
       }
+      crowdnoise_free_pcm_f32(&oneShotPcm);
+        crowdnoise_free_pcm_f32(&kickOneShotPcm);
+        crowdnoise_free_pcm_f32(&hatsOneShotPcm);
       crowdnoise_free_pcm_f32(&mix);
       return 1;
     }
@@ -999,6 +1283,9 @@ int main(int argc, char** argv) {
         crowdnoise_free_pcm_f32(&replacementTracks[i]);
         if (hasOriginal[i]) crowdnoise_free_pcm_f32(&originalTracks[i]);
       }
+      crowdnoise_free_pcm_f32(&oneShotPcm);
+        crowdnoise_free_pcm_f32(&kickOneShotPcm);
+        crowdnoise_free_pcm_f32(&hatsOneShotPcm);
       crowdnoise_free_pcm_f32(&mix);
       return 1;
     }
@@ -1016,6 +1303,9 @@ int main(int argc, char** argv) {
         crowdnoise_free_pcm_f32(&replacementTracks[i]);
         if (hasOriginal[i]) crowdnoise_free_pcm_f32(&originalTracks[i]);
       }
+      crowdnoise_free_pcm_f32(&oneShotPcm);
+        crowdnoise_free_pcm_f32(&kickOneShotPcm);
+        crowdnoise_free_pcm_f32(&hatsOneShotPcm);
       crowdnoise_free_pcm_f32(&mix);
       return 1;
     }
@@ -1026,6 +1316,9 @@ int main(int argc, char** argv) {
     crowdnoise_free_pcm_f32(&replacementTracks[i]);
     if (hasOriginal[i]) crowdnoise_free_pcm_f32(&originalTracks[i]);
   }
+  crowdnoise_free_pcm_f32(&oneShotPcm);
+        crowdnoise_free_pcm_f32(&kickOneShotPcm);
+        crowdnoise_free_pcm_f32(&hatsOneShotPcm);
   crowdnoise_free_pcm_f32(&mix);
 
   std::cout << "Wrote: " << outMp3Path << "\n";

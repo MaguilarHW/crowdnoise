@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Drum mask config (drums MVP)",
+  "description": "Config for overlay user one-shot at each detected kick/hats hit onto the drums stem",
+  "type": "object",
+  "required": ["one_shot_path"],
+  "properties": {
+    "one_shot_path": {
+      "type": "string",
+      "description": "Path to canonical user one-shot (e.g. canonical/canonical.mp3 from ingest)"
+    },
+    "drum_events": {
+      "type": "array",
+      "description": "Merged list of hit times (seconds). Built by build_drum_placements.py from kick_times.csv + hats_times.csv",
+      "items": { "type": "number", "minimum": 0 }
+    },
+    "kick_times_csv": {
+      "type": "string",
+      "description": "Path to kick_times.csv (alternative to drum_events)"
+    },
+    "hats_times_csv": {
+      "type": "string",
+      "description": "Path to hats_times.csv (alternative to drum_events)"
+    },
+    "duck_original_db": {
+      "type": "number",
+      "description": "Optional duck original drums at hit times (dB). 0 = no ducking"
+    }
+  },
+  "oneOf": [
+    { "required": ["drum_events"] },
+    { "required": ["kick_times_csv", "hats_times_csv"] }
+  ]
+}

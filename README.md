@@ -161,3 +161,24 @@ Run:
 Notes:
 - The MP3 paths in the JSON must exist on your computer.
 - `segments` (`start_ms` / `end_ms`) control when each instrument plays.
+
+## Drums MVP: One-shot overlay at hit times
+
+Overlay a user-recorded drum one-shot at every detected kick and hats hit (timestamp-accurate at 48 kHz).
+
+**Quick test:**
+```bash
+make run-drums-mvp   # uses testing data/drums_mvp_mix.json → out_drums_mvp.mp3
+```
+
+**Full pipeline** (after Demucs split + isolate_drums with `--export-hits`):
+```bash
+./scripts/run_drums_mvp.sh \
+  --stems-dir output/htdemucs_6s/<song> \
+  --drum-dir output/trackDecomp/<song>/drum \
+  --one-shot canonical/canonical.mp3 \
+  --out recreation.mp3 \
+  [--normalize]
+```
+
+See [docs/DRUMS_MVP_PIPELINE.md](docs/DRUMS_MVP_PIPELINE.md) for full documentation.
