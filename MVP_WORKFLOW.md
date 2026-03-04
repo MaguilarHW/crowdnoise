@@ -30,7 +30,7 @@ Record two sounds to replace kick and hats:
 - **Kick** — a low punch (table thump, body hit, etc.)
 - **Hats** — a bright hit (finger snap, keys, pen tap, etc.)
 
-**Reference one-shots** (in `MVP demo/drum/`): `kick_one_shot.wav`, `hats_one_shot.wav` — use these as examples for length and tone.
+**Reference one-shots** (in `MVP demo/drum/`): `kick_one_shot.mp3`, `hats_one_shot.mp3` — use these as examples for length and tone.
 
 **Record with:**
 
@@ -50,7 +50,7 @@ make
 DURATION=$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "MVP demo/combined_portable.mp3")
 
 # Match gain to reference, then place kick
-KICK_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/kick.wav" --sample "MVP demo/my_kick.mp3" --times "MVP demo/drum/kick_times.csv")
+KICK_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/kick.mp3" --sample "MVP demo/my_kick.mp3" --times "MVP demo/drum/kick_times.csv")
 ./bin/repeat_sample_at_times_cli \
   --times "MVP demo/drum/kick_times.csv" \
   --sample "MVP demo/my_kick.mp3" \
@@ -59,7 +59,7 @@ KICK_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/kick.wav
   --gain "$KICK_GAIN"
 
 # Match gain to reference, then place hats
-HATS_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/hats.wav" --sample "MVP demo/my_hats.mp3" --times "MVP demo/drum/hats_times.csv")
+HATS_GAIN=$(python3 src/match_sample_gain.py --reference "MVP demo/drum/hats.mp3" --sample "MVP demo/my_hats.mp3" --times "MVP demo/drum/hats_times.csv")
 ./bin/repeat_sample_at_times_cli \
   --times "MVP demo/drum/hats_times.csv" \
   --sample "MVP demo/my_hats.mp3" \
@@ -74,8 +74,6 @@ ffmpeg -y -hide_banner -loglevel error \
   -filter_complex "amix=inputs=2:duration=longest" \
   -c:a libmp3lame -q:a 2 "MVP demo/remade_drums.mp3"
 ```
-
-*If you used MP3 (not WAV) for drum output, use `kick.mp3` and `hats.mp3` instead of `kick.wav` and `hats.wav` in `--reference`.*
 
 ---
 

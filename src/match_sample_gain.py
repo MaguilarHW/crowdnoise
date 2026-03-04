@@ -3,10 +3,11 @@
 Compute gain so user-recorded sample matches volume of reference track at hit times.
 
 Usage:
-  python3 src/match_sample_gain.py --reference MVP\ demo/drum/kick.wav \\
+  python3 src/match_sample_gain.py --reference MVP\ demo/drum/kick.mp3 \\
     --sample MVP\ demo/my_kick.mp3 --times MVP\ demo/drum/kick_times.csv
 
 Prints the gain multiplier to stdout (for --gain in repeat_sample_at_times_cli).
+Accepts MP3 or WAV for reference and sample; reference is the instrument being replaced.
 """
 
 from __future__ import annotations
@@ -56,7 +57,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description="Compute gain so user sample matches reference volume at hit times."
     )
-    parser.add_argument("--reference", type=Path, required=True, help="Reference track (kick.wav or hats.wav).")
+    parser.add_argument("--reference", type=Path, required=True, help="Reference track (kick.mp3 or hats.mp3) — the instrument being replaced.")
     parser.add_argument("--sample", type=Path, required=True, help="User-recorded sample (mp3/wav).")
     parser.add_argument("--times", type=Path, required=True, help="Hit times CSV (time_seconds).")
     parser.add_argument(
