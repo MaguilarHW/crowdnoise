@@ -1,0 +1,3 @@
+How do you plan to balance adding social features like Remix Battles or Sample Trading with the minimalist, clutter-free aesthetic of the app?
+Could implementing track-specific messaging or offline sync help prevent collaboration from stalling when group members are working asynchronously?
+How will the "album unlock" progression be tuned to keep beginners motivated if their initial remakes feel unpolished or low-fidelity?
